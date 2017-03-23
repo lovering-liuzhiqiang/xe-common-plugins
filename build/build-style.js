@@ -1,13 +1,14 @@
 var gulp = require('gulp');
 var cleanCSS = require('gulp-clean-css');
 var less = require('gulp-less');
+var scss = require('gulp-sass');
 var rename = require('gulp-rename');
 var autoprefixer = require('gulp-autoprefixer');
 
 // 编译less
 gulp.task('css', function () {
-    gulp.src('../src/styles/index.less')
-        .pipe(less())
+    gulp.src('../src/styles/index.scss')
+        .pipe(scss())
         .pipe(autoprefixer({
             browsers: ['last 2 versions', 'ie > 8']
         }))

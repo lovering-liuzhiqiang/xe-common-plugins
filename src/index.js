@@ -1,11 +1,10 @@
 // es6 polyfill
 import 'core-js/fn/array/find-index';
 
-import Timeline from './components/timeline';
+import xcmsheader from './components/header/';
 
 const iview = {
-    Timeline,
-    TimelineItem: Timeline.Item
+    xcmsheader
 };
 
 const install = function (Vue, opts = {}) {

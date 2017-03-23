@@ -4,10 +4,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app.vue';
-import iView from '../src/index';
+import xcmsCommonPlugins from '../src/index';
 
 Vue.use(VueRouter);
-Vue.use(iView);
+Vue.use(xcmsCommonPlugins);
 
 // 开启debug模式
 Vue.config.debug = true;
@@ -16,8 +16,8 @@ Vue.config.debug = true;
 const router = new VueRouter({
     routes: [
         {
-            path: '/timeline',
-            component: require('./routers/timeline.vue')
+            path: '/header',
+            component: require('./routers/header.vue')
         }
     ]
 });

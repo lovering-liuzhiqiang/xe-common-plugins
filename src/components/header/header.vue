@@ -1,13 +1,12 @@
 <template>
-    <ul :class="classes">
-        <slot></slot>
-    </ul>
+    <div :class="classes">
+        鲜易供应链协同平台
+    </div>
 </template>
-<script>
-    const prefixCls = 'ivu-timeline';
-
+<script type="text/ecmascript-6">
+    const prefixCls = 'xcms-header';
     export default {
-        name: 'Timeline',
+        name: 'xcmsHeader',
         props: {
             pending: {
                 type: Boolean,
@@ -15,9 +14,9 @@
             }
         },
         computed: {
-            classes () {
+            classes() {
                 return [
-                    `${prefixCls}`,
+                        `${prefixCls}`,
                     {
                         [`${prefixCls}-pending`]: this.pending
                     }

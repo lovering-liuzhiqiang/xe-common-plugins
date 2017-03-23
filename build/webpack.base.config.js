@@ -19,7 +19,7 @@ module.exports = {
                 options: {
                     loaders: {
                         css: 'vue-style-loader!css-loader',
-                        less: 'vue-style-loader!css-loader!less-loader'
+                        less: 'vue-style-loader!css-loader!sass-loader'
                     },
                     postLoaders: {
                         html: 'babel-loader'
@@ -52,6 +52,14 @@ module.exports = {
                     'style-loader',
                     'css-loader',
                     'sass-loader?sourceMap'
+                ]
+            },
+            {
+                test: /\.sass$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader?indentedSyntax'
                 ]
             },
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=8192'},

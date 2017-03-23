@@ -12,7 +12,7 @@ module.exports = merge(webpackBaseConfig, {
     output: {
         path: path.resolve(__dirname, '../dist'),
         publicPath: '/dist/',
-        filename: 'xcms-common.js',
+        filename: 'xcms-common.min.js',
         library: 'xcms',
         libraryTarget: 'umd',
         umdNamedDefine: true
