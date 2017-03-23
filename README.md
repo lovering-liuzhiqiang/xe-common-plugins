@@ -1,1 +1,1 @@
-# xcms
+# xcms-common-plugins

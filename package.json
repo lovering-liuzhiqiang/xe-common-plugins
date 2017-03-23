@@ -1,5 +1,5 @@
 {
-  "name": "xcms-common",
+  "name": "xcms-common-plugins",
   "version": "1.0.0",
   "title": "xcms-common",
   "description": "xcms components Library with Vue.js",
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iview/iview"
+    "url": "https://github.com/ChangeZhang/xe-common-plugins"
   },
-  "author": "Aresn",
+  "author": "zhangwen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iview/iview/issues"
+    "url": "https://github.com/ChangeZhang/xe-common-plugins/issues"
   },
   "dependencies": {
     "async-validator": "^1.6.7",
