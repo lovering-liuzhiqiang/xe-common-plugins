@@ -5,9 +5,16 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app.vue';
 import xcmsCommonPlugins from '../src/index';
+import Cookies from 'js-cookie';
+import Bus from './vueBus.js';
 
 Vue.use(VueRouter);
 Vue.use(xcmsCommonPlugins);
+
+
+Vue.prototype.$xeCookies = Cookies;
+Vue.prototype.$xeStore = window.localStorage;
+Vue.prototype.$xeBus = Bus;
 
 // 开启debug模式
 Vue.config.debug = true;
@@ -18,6 +25,10 @@ const router = new VueRouter({
         {
             path: '/header',
             component: require('./routers/header.vue')
+        },
+        {
+            path: '/mainmenu',
+            component: require('./routers/mainmenu.vue')
         }
     ]
 });

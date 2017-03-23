@@ -2,14 +2,17 @@
 import 'core-js/fn/array/find-index';
 
 import xcmsheader from './components/header/';
+import mainmenu from './components/mainmenu/';
 
-const iview = {
-    xcmsheader
+const xcms = {
+    xcmsheader,
+    mainmenu
 };
 
 const install = function (Vue, opts = {}) {
-    Object.keys(iview).forEach((key) => {
-        Vue.component(key, iview[key]);
+    if (install.installed) return;
+    Object.keys(xcms).forEach((key) => {
+        Vue.component(key, xcms[key]);
     });
 };
 
@@ -17,5 +20,8 @@ const install = function (Vue, opts = {}) {
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
 }
-
-module.exports = Object.assign(iview, {install});   // eslint-disable-line no-undef
+export default {
+    install,
+    xcmsheader,
+    mainmenu
+};

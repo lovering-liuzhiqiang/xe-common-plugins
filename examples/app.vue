@@ -11,7 +11,7 @@ nav a {
     color: #3399ff;
     line-height: 30px;
 }
-ul { display: flex; flex-wrap: wrap; }
+ul { display: flex; flex-wrap: wrap;  margin-top: 10px;}
 li { display: inline-block; }
 li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
 .container{}
@@ -23,6 +23,7 @@ li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
             <h3>demo list</h3>
             <ul>
                 <li><router-link to="/header">header</router-link></li>
+                <li><router-link to="/mainmenu">left-main-menu</router-link></li>
             </ul>
         </nav>
         <router-view></router-view>
