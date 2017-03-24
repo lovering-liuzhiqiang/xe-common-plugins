@@ -1,10 +1,10 @@
 <template>
     <div :class="classes">
-        <el-menu class="el-menu-vertical-demo" :default-active="'0'">
+        <el-menu class="el-menu-vertical-demo" :default-active="'oper_007'">
             <el-menu-item
                     v-for="(item, pindex) in menuData"
                     :key="pindex"
-                    :index="pindex+''"
+                    :index="item.id+''"
                     @click.prevent.native="navTo(item.id)">{{item.menuName}}</el-menu-item>
         </el-menu>
     </div>
@@ -161,7 +161,7 @@
                     }
                 ],
                 menuLink: {
-                    'oper_007': 'http://localhost:8081/#/',
+                    'oper_007': 'http://localhost:8002/csc/',
                     'oper_001': 'http://www.jd.com/'
                 }
             };
