@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height: 100%;">
         <mainmenu></mainmenu>
     </div>
 </template>

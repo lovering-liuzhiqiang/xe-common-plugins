@@ -36,3 +36,25 @@ input::-ms-clear, input::-ms-reveal {
 .fr {
   float: right;
 }
+.top-main-nav2 {
+    width: 120px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #eef1f6;
+}
+.body-mainmenu-sort {
+    .top-main-nav2 {
+        width: 50px;
+    }
+    .page-con {
+        margin-left: 50px;
+    }
+}
+.page-con {
+    margin-left: 120px;
+    height: 100%;
+    position: relative;
+    min-height: 500px;
+}

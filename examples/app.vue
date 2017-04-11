@@ -16,6 +16,10 @@ li { display: inline-block; }
 li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
 .container{}
 .v-link-active { color: #bbb; }
+.example-con {
+    width: 99%;
+    margin: 0 auto;
+}
 </style>
 <template>
     <div class="container">
@@ -26,7 +30,9 @@ li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
                 <li><router-link to="/mainmenu">left-main-menu</router-link></li>
             </ul>
         </nav>
-        <router-view></router-view>
+        <div class="example-con">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>

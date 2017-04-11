@@ -1,187 +1,124 @@
 <template>
     <div :class="classes">
-        <el-menu class="el-menu-vertical-demo" :default-active="'oper_007'">
-            <el-menu-item
-                    v-for="(item, pindex) in menuData"
-                    :key="pindex"
-                    :index="item.id+''"
-                    @click.prevent.native="navTo(item.id)">{{item.menuName}}</el-menu-item>
-        </el-menu>
+        <div class="btn-mainmenu" @click='changeWidth'>
+            <span class="u-icon">{{menuflag ? '展开' : '收起'}}</span>
+        </div>
+        <ul>
+            <li v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
+                <el-tooltip effect="light" popper-class='mainmenu-tip' :disabled='tipflag' :content="item.menuName" placement="right">
+                    <a target="_blank" :href="item.url | scaleLinks">
+                        <em class="u-icon el-icon-menu"></em>
+                        <span class='text'>
+                            {{item.menuName}}
+                        </span>
+                    </a>
+                </el-tooltip>
+            </li>
+        </ul>
     </div>
 </template>
 <script type="text/ecmascript-6">
-    import {Menu, menuItem} from 'element-ui';
+    import {scaleLinks} from '../../filters/';
+    import {Tooltip} from 'element-ui';
+    import { addClass, removeClass } from '../../utils/';
     const prefixCls = 'xcms-mainmenu';
     export default {
         data() {
             return {
-                menuData: [
-                    {
-                        "id": "oper_007",
-                        "pid": "oper_root",
-                        "actionCode": "oper007",
-                        "menuName": "客户中心",
-                        "url": "/1",
-                        "icon": "fa-users",
-                        "number": "1",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_001",
-                        "pid": "oper_root",
-                        "actionCode": "oper001",
-                        "menuName": "产品中心",
-                        "url": "",
-                        "icon": "fa-cubes",
-                        "number": "2",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_006",
-                        "pid": "oper_root",
-                        "actionCode": "oper006",
-                        "menuName": "资源中心",
-                        "url": "",
-                        "icon": "fa-th-list",
-                        "number": "3",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_005",
-                        "pid": "oper_root",
-                        "actionCode": "oper005",
-                        "menuName": "订单中心",
-                        "url": "",
-                        "icon": "fa-clipboard",
-                        "number": "4",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_009",
-                        "pid": "oper_root",
-                        "actionCode": "oper009",
-                        "menuName": "调度中心",
-                        "url": "",
-                        "icon": "fa-sliders",
-                        "number": "5",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_004",
-                        "pid": "oper_root",
-                        "actionCode": "oper004",
-                        "menuName": "仓储中心",
-                        "url": "",
-                        "icon": "fa-building",
-                        "number": "6",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_003",
-                        "pid": "oper_root",
-                        "actionCode": "oper003",
-                        "menuName": "配送中心",
-                        "url": "",
-                        "icon": "fa-truck",
-                        "number": "7",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "413b8d675ee24e30b9e21d824d945fd9",
-                        "pid": "oper_root",
-                        "actionCode": "oper074",
-                        "menuName": "对接中心",
-                        "url": "/epc",
-                        "icon": "fa-clipboard",
-                        "number": "7",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_012",
-                        "pid": "oper_root",
-                        "actionCode": "oper012",
-                        "menuName": "结算中心",
-                        "url": "",
-                        "icon": "fa-fax",
-                        "number": "10",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    },
-                    {
-                        "id": "oper_013",
-                        "pid": "oper_root",
-                        "actionCode": "oper012",
-                        "menuName": "客服中心",
-                        "url": "",
-                        "icon": "fa-envelope",
-                        "number": "11",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": false
-                    },
-                    {
-                        "id": "oper_008",
-                        "pid": "oper_root",
-                        "actionCode": "oper008",
-                        "menuName": "数据分析",
-                        "url": "",
-                        "icon": "fa-jsfiddle",
-                        "number": "13",
-                        "remark": "",
-                        "yn": null,
-                        "parentMenu": null,
-                        "hasMenu": true
-                    }
-                ],
-                menuLink: {
-                    'oper_007': 'http://localhost:8002/csc/',
-                    'oper_001': 'http://www.jd.com/'
-                }
+                menuflag: false
             };
         },
         computed: {
+            hrefValue() {
+                return window.location.href;
+            },
             classes() {
                 return [
-                        `${prefixCls}`
+                        `${prefixCls}`,
+                        {
+                            [`${prefixCls}-sort`]: this.menuflag
+                        }
                 ];
+            },
+            tipflag() {
+                return !this.menuflag
+            },
+            menuData() {
+                var menuList = window.localStorage.getItem('menuList');
+                var datas = menuList ? JSON.parse(menuList) : [];
+                var result = [];
+                if(datas.length) {
+                    datas.forEach((item, index) => {
+                        this.$delete(item, 'subMenu')
+                        result.push(item);
+                    });
+                }
+                console.log(result);
+                return result;
             }
         },
         methods: {
-            navTo(id) {
-                this.$xeStore.setItem('abc', 111);
-                window.location.href = this.menuLink[id];
+            menuItemClick(flag, event) {
+                console.log(flag);
+                if (flag) {
+                    event.preventDefault();
+                }
+                // 判断是否认证信息
+                var approveFlag = this.$xeCookies.get('approveFlag');
+                switch (approveFlag) {
+                    case 'NOT_THROUGH' :
+                        // 未验证
+                        event.preventDefault();
+                        this.$router.replace({
+                            name: 'userinitial'
+                        });
+                        break;
+                    case '100' :
+                        // 未认证
+                        event.preventDefault();
+                        this.$router.replace({
+                            name: 'userinitial'
+                        });
+                        break;
+                    case '200' :
+                        // 认证中
+                        event.preventDefault();
+                        this.$router.replace({
+                            name: 'userauthentication'
+                        });
+                        break;
+                    case '300' :
+                        // 驳回
+                        event.preventDefault();
+                        this.$router.replace({
+                            name: 'reject'
+                        });
+                        break;
+                    default :
+                        next({
+                            path: '/'
+                        });
+                }
+            },
+            changeWidth() {
+                this.menuflag = !this.menuflag;
+
+                if (this.menuflag) {
+                    this.$nextTick(() => {
+                        addClass(document.querySelector('body'), 'body-mainmenu-sort');
+                    });
+                } else {
+                    this.$nextTick(() => {
+                        removeClass(document.querySelector('body'), 'body-mainmenu-sort');
+                    });
+                }
             }
         },
+        filters: {
+            scaleLinks
+        },
         components: {
-            'el-menu': Menu,
-            'el-menu-item': menuItem
+            'el-tooltip': Tooltip
         }
     };
 </script>
