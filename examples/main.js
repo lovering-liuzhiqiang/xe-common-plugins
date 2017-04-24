@@ -30,6 +30,10 @@ const router = new VueRouter({
         {
             path: '/mainmenu',
             component: require('./routers/mainmenu.vue')
+        },
+        {
+            path: '/icons',
+            component: require('./routers/icons.vue')
         }
     ]
 });

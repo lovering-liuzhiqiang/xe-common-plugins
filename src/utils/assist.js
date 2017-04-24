@@ -1,3 +1,26 @@
+// 检测对象内是否有某属性
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+export function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
+};
+
+function extend(to, _from) {
+  for (let key in _from) {
+    to[key] = _from[key];
+  }
+  return to;
+};
+// 对象合并
+export function toObject(arr) {
+  var res = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i]);
+    }
+  }
+  return res;
+};
+
 // 判断参数是否是其中之一
 export function oneOf (value, validList) {
     for (var i = 0; i < validList.length; i++) {
@@ -73,37 +96,37 @@ function firstUpperCase(str) {
 export {firstUpperCase};
 
 // scrollTop animation
-// export function scrollTop(el, from = 0, to, duration = 500) {
-//     if (!window.requestAnimationFrame) {
-//         window.requestAnimationFrame = (
-//             window.webkitRequestAnimationFrame ||
-//             window.mozRequestAnimationFrame ||
-//             window.msRequestAnimationFrame ||
-//             function (callback) {
-//                 return window.setTimeout(callback, 1000/60);
-//             }
-//         );
-//     }
-//     var difference = Math.abs(from - to);
-//     var step = Math.ceil(difference / duration * 50);
-//
-//     function scroll(start, end, step) {
-//         if (start === end) return;
-//
-//         let d = (start + step > end) ? end : start + step;
-//         if (start > end) {
-//             d = (start - step < end) ? end : start - step;
-//         }
-//
-//         if (el === window) {
-//             window.scrollTo(d, d);
-//         } else {
-//             el.scrollTop = d;
-//         }
-//         window.requestAnimationFrame(() => scroll(d, end, step));
-//     }
-//     scroll(from, to, step);
-// }
+export function scrollTop(el, from = 0, to, duration = 500) {
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                return window.setTimeout(callback, 1000/60);
+            }
+        );
+    }
+    var difference = Math.abs(from - to);
+    var step = Math.ceil(difference / duration * 50);
+
+    function scroll(start, end, step) {
+        if (start === end) return;
+
+        let d = (start + step > end) ? end : start + step;
+        if (start > end) {
+            d = (start - step < end) ? end : start - step;
+        }
+
+        if (el === window) {
+            window.scrollTo(d, d);
+        } else {
+            el.scrollTop = d;
+        }
+        window.requestAnimationFrame(() => scroll(d, end, step));
+    }
+    scroll(from, to, step);
+}
 
 // addClass
 export function addClass(obj, cls){

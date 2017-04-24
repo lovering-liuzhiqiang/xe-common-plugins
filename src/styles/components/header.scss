@@ -5,15 +5,15 @@ $header-prefix-cls: "#{$css-prefix}header";
   background: $header-bg-color;
   line-height: 45px;
   color: #fff;
-  padding: 0 16px;
   min-width: 1200px;
-
   .headerWrapper {
     min-width: 1200px;
     height: 45px;
   }
   .header {
     width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
     margin: 0 auto;
     height: 45px;
     overflow:hidden;

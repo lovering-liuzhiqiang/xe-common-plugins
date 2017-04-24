@@ -6,11 +6,11 @@
                     <a :href="pageIndexHref">鲜易供应链协同平台</a>
                 </div>
                 <div class='header-msg fr'>
-                    <template v-if="userName">
+                    <template v-if="loginName">
                             <el-dropdown class='headerDrop' @command="handleCommand">
                                 <div class="el-dropdown-link">
                                     <p>欢迎,</p>
-                                    <p>{{userName}}</p>
+                                    <p>{{loginName}}</p>
                                     <i class="el-icon-caret-bottom el-icon--right"></i>
                                 </div>
                                 <el-dropdown-menu class='headerDropmenu' slot="dropdown">
@@ -40,6 +40,7 @@
 <script type="text/ecmascript-6">
     const prefixCls = 'xcms-header';
     import {Dropdown, DropdownMenu, DropdownItem} from 'element-ui';
+    import {logOut, getNowCookie} from '../../utils/';
     export default {
         name: 'xcmsHeader',
         props: {
@@ -50,33 +51,34 @@
         },
         data() {
             return {
-                userName: '',
-                locationHref: 'http://localhost:8001/login',
-                pageIndexHref: 'http://localhost:8001/'
+                loginName: '',
+                pageIndexHref: 'http://localhost:8001/',
+                locationHref: 'http://localhost:8001/userauth/login',
+                locationForget: 'http://localhost:8001/home/userForgetpass',
+                locationPersonInfo: 'http://localhost:8001/home/PersonInfor',
             };
         },
         created() {
             var _this = this;
-
             switch (process.env.NODE_ENV) {
                 case 'production':
-                    this.locationHref = 'http://paas-web.xianyiscm.com/login';
                     this.pageIndexHref = 'http://paas-web.xianyiscm.com/';
                     break;
                 case 'beta':
-                    this.locationHref = 'http://paas-web-beta.xianyiscm.com/login';
                     this.pageIndexHref = 'http://paas-web-beta.xianyiscm.com/';
                     break;
                 case 'test':
-                    this.locationHref = 'http://paas-web-test.xianyiscm.com/login';
                     this.pageIndexHref = 'http://paas-web-test.xianyiscm.com/';
                     break;
                 case 'devend':
-                    this.locationHref = 'http://paas-web-dev.xianyiscm.com/login';
                     this.pageIndexHref = 'http://paas-web-dev.xianyiscm.com/';
                     break;
             };
+            this.locationHref = this.pageIndexHref + 'userauth/login';
+            this.locationForget = this.pageIndexHref + 'home/userForgetpass';
+            this.locationPersonInfo = this.pageIndexHref + 'home/PersonInfor';
 
+            // ======
             this.getUserInfo();
             this.$xeBus.$on('logined', function() {
                 _this.getUserInfo();
@@ -92,11 +94,11 @@
                 switch (command) {
                     case 'a':
                         // 修改密码
-
+                        window.location.href = this.locationForget;
                         break;
                     case 'b':
                         // 个人信息
-
+                        window.location.href = this.locationPersonInfo;
                         break;
                     case 'c':
                         // 返回主页
@@ -112,16 +114,13 @@
                 window.location.href = this.locationHref;
             },
             logOutfn() {
-                if (process.env.NODE_ENV === 'development') {
-                    this.$xeCookies.remove('userInfo');
-                    this.$xeCookies.remove('token');
-                } else {
-                    this.$xeCookies.remove('userInfo', {domain: '.xianyiscm.com'});
-                    this.$xeCookies.remove('token', {domain: '.xianyiscm.com'});
-                }
+                // 老版退出
+                this.$http({
+                    method: 'POST',
+                    url: '/page/login/logout'
+                });
+                logOut();
                 this.$xeStore.removeItem('menuList');
-                // this.$xeStore.removeItem('token');
-                // this.$router.replace({name: 'Login'});
                 this.backToLogin();
             },
             logInfn() {
@@ -129,10 +128,8 @@
                 this.backToLogin();
             },
             getUserInfo() {
-                var userInfo = this.$xeCookies.get('userInfo');
-                if (userInfo) {
-                    this.userName = JSON.parse(userInfo).username;
-                }
+                var nowCookie = getNowCookie();
+                this.loginName = nowCookie.userInfo.loginName;
             }
         },
         computed: {

@@ -21,9 +21,21 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
         height: 30px;
         line-height: 30px;
         background: #e5e5e5;
-        font-size: 12px;
         color: #999;
         text-align: center;
+        .xcms-iconfont {
+            font-size: 14px;
+            &:before {
+                transform: rotate(90deg);
+                display: inline-block;
+                transition: all .1s ease;
+            }
+            &.icon-act {
+                &:before {
+                    transform: rotate(0deg);
+                }
+            }
+        }
     }
     ul {
         position: absolute;
@@ -45,11 +57,11 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
             color: #333;
             height: 100%;
         }
-        .u-icon {
-            width: 24px;
+        .u-icon,.xcms-iconfont {
+            width: 20px;
             height: 100%;
             line-height: 54px;
-            font-size: 18px;
+            font-size: 20px;
             display: inline-block;
             vertical-align: top;
             color: #666;

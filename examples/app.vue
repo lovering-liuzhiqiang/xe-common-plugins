@@ -26,8 +26,9 @@ li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
         <nav>
             <h3>demo list</h3>
             <ul>
-                <li><router-link to="/header">header</router-link></li>
-                <li><router-link to="/mainmenu">left-main-menu</router-link></li>
+                <li><router-link to="/header">头部</router-link></li>
+                <li><router-link to="/mainmenu">左侧主导航</router-link></li>
+                <li><router-link to="/icons">图标集合</router-link></li>
             </ul>
         </nav>
         <div class="example-con">

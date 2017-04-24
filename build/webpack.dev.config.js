@@ -1,7 +1,6 @@
 /**
  * 本地预览
  */
-
 var path = require('path');
 var webpack = require('webpack');
 // var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -26,7 +25,7 @@ module.exports = merge(webpackBaseConfig, {
     },
     resolve: {
         alias: {
-            iview: '../../src/index',
+            xecommons: '../../src/index',
             vue: 'vue/dist/vue.js'
         }
     },
