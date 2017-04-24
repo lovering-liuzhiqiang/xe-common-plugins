@@ -7,14 +7,15 @@ import App from './app.vue';
 import xcmsCommonPlugins from '../src/index';
 import Cookies from 'js-cookie';
 import Bus from './vueBus.js';
+// import { commonMapLink } from '../src/utils/';
 
 Vue.use(VueRouter);
 Vue.use(xcmsCommonPlugins);
 
-
 Vue.prototype.$xeCookies = Cookies;
 Vue.prototype.$xeStore = window.localStorage;
 Vue.prototype.$xeBus = Bus;
+// Vue.$coMapLink = Vue.prototype.$coMapLink = new commonMapLink();
 
 // 开启debug模式
 Vue.config.debug = true;
@@ -29,6 +30,10 @@ const router = new VueRouter({
         {
             path: '/mainmenu',
             component: require('./routers/mainmenu.vue')
+        },
+        {
+            path: '/icons',
+            component: require('./routers/icons.vue')
         }
     ]
 });

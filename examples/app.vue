@@ -16,17 +16,24 @@ li { display: inline-block; }
 li + li { border-left: solid 1px #bbb; padding-left: 10px; margin-left: 10px; }
 .container{}
 .v-link-active { color: #bbb; }
+.example-con {
+    width: 99%;
+    margin: 0 auto;
+}
 </style>
 <template>
     <div class="container">
         <nav>
             <h3>demo list</h3>
             <ul>
-                <li><router-link to="/header">header</router-link></li>
-                <li><router-link to="/mainmenu">left-main-menu</router-link></li>
+                <li><router-link to="/header">头部</router-link></li>
+                <li><router-link to="/mainmenu">左侧主导航</router-link></li>
+                <li><router-link to="/icons">图标集合</router-link></li>
             </ul>
         </nav>
-        <router-view></router-view>
+        <div class="example-con">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>

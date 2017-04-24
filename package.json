@@ -1,6 +1,6 @@
 {
   "name": "xcms-common-plugins",
-  "version": "1.0.7",
+  "version": "1.4.17",
   "title": "xcms-common",
   "description": "xcms components Library with Vue.js",
   "homepage": "",
@@ -17,7 +17,7 @@
     "src"
   ],
   "scripts": {
-    "dev": "webpack-dev-server --content-base test/ --open --inline --hot --compress --history-api-fallback --port 8081 --config build/webpack.dev.config.js",
+    "dev": "webpack-dev-server --content-base test/ --open --inline --hot --compress --history-api-fallback --port 8001 --config build/webpack.dev.config.js",
     "build:style": "gulp --gulpfile build/build-style.js",
     "build:dev": "webpack --config build/webpack.dist.dev.config.js",
     "build:prod": "webpack --config build/webpack.dist.prod.config.js",

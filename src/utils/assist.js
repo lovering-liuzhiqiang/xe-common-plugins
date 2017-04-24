@@ -1,6 +1,29 @@
+// 检测对象内是否有某属性
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+export function hasOwn(obj, key) {
+  return hasOwnProperty.call(obj, key);
+};
+
+function extend(to, _from) {
+  for (let key in _from) {
+    to[key] = _from[key];
+  }
+  return to;
+};
+// 对象合并
+export function toObject(arr) {
+  var res = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i]);
+    }
+  }
+  return res;
+};
+
 // 判断参数是否是其中之一
 export function oneOf (value, validList) {
-    for (let i = 0; i < validList.length; i++) {
+    for (var i = 0; i < validList.length; i++) {
         if (value === validList[i]) {
             return true;
         }
@@ -13,15 +36,15 @@ export function camelcaseToHyphen (str) {
 }
 
 // For Modal scrollBar hidden
-let cached;
+var cached;
 export function getScrollBarSize (fresh) {
     if (fresh || cached === undefined) {
-        const inner = document.createElement('div');
+        var inner = document.createElement('div');
         inner.style.width = '100%';
         inner.style.height = '200px';
 
-        const outer = document.createElement('div');
-        const outerStyle = outer.style;
+        var outer = document.createElement('div');
+        var outerStyle = outer.style;
 
         outerStyle.position = 'absolute';
         outerStyle.top = 0;
@@ -36,9 +59,9 @@ export function getScrollBarSize (fresh) {
 
         document.body.appendChild(outer);
 
-        const widthContained = inner.offsetWidth;
+        var widthContained = inner.offsetWidth;
         outer.style.overflow = 'scroll';
-        let widthScroll = inner.offsetWidth;
+        var widthScroll = inner.offsetWidth;
 
         if (widthContained === widthScroll) {
             widthScroll = outer.clientWidth;
@@ -51,17 +74,6 @@ export function getScrollBarSize (fresh) {
     return cached;
 }
 
-// watch DOM change
-export const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false;
-
-const SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
-const MOZ_HACK_REGEXP = /^moz([A-Z])/;
-
-function camelCase(name) {
-    return name.replace(SPECIAL_CHARS_REGEXP, function(_, separator, letter, offset) {
-        return offset ? letter.toUpperCase() : letter;
-    }).replace(MOZ_HACK_REGEXP, 'Moz$1');
-}
 // getStyle
 export function getStyle (element, styleName) {
     if (!element || !styleName) return null;
@@ -70,7 +82,7 @@ export function getStyle (element, styleName) {
         styleName = 'cssFloat';
     }
     try {
-        const computed = document.defaultView.getComputedStyle(element, '');
+        var computed = document.defaultView.getComputedStyle(element, '');
         return element.style[styleName] || computed ? computed[styleName] : null;
     } catch(e) {
         return element.style[styleName];
@@ -82,57 +94,6 @@ function firstUpperCase(str) {
     return str.toString()[0].toUpperCase() + str.toString().slice(1);
 }
 export {firstUpperCase};
-
-// Warn
-export function warnProp(component, prop, correctType, wrongType) {
-    correctType = firstUpperCase(correctType);
-    wrongType = firstUpperCase(wrongType);
-    console.error(`[iView warn]: Invalid prop: type check failed for prop ${prop}. Expected ${correctType}, got ${wrongType}. (found in component: ${component})`);    // eslint-disable-line
-}
-
-function typeOf(obj) {
-    const toString = Object.prototype.toString;
-    const map = {
-        '[object Boolean]'  : 'boolean',
-        '[object Number]'   : 'number',
-        '[object String]'   : 'string',
-        '[object Function]' : 'function',
-        '[object Array]'    : 'array',
-        '[object Date]'     : 'date',
-        '[object RegExp]'   : 'regExp',
-        '[object Undefined]': 'undefined',
-        '[object Null]'     : 'null',
-        '[object Object]'   : 'object'
-    };
-    return map[toString.call(obj)];
-}
-
-// deepCopy
-function deepCopy(data) {
-    const t = typeOf(data);
-    let o;
-
-    if (t === 'array') {
-        o = [];
-    } else if ( t === 'object') {
-        o = {};
-    } else {
-        return data;
-    }
-
-    if (t === 'array') {
-        for (let i = 0; i < data.length; i++) {
-            o.push(deepCopy(data[i]));
-        }
-    } else if ( t === 'object') {
-        for (let i in data) {
-            o[i] = deepCopy(data[i]);
-        }
-    }
-    return o;
-}
-
-export {deepCopy};
 
 // scrollTop animation
 export function scrollTop(el, from = 0, to, duration = 500) {
@@ -146,8 +107,8 @@ export function scrollTop(el, from = 0, to, duration = 500) {
             }
         );
     }
-    const difference = Math.abs(from - to);
-    const step = Math.ceil(difference / duration * 50);
+    var difference = Math.abs(from - to);
+    var step = Math.ceil(difference / duration * 50);
 
     function scroll(start, end, step) {
         if (start === end) return;
@@ -167,69 +128,31 @@ export function scrollTop(el, from = 0, to, duration = 500) {
     scroll(from, to, step);
 }
 
-// Find components upward
-function findComponentUpward (content, componentName, componentNames) {
-    if (typeof componentName === 'string') {
-        componentNames = [componentName];
-    } else {
-        componentNames = componentName;
-    }
-
-    let parent = content.$parent;
-    let name = parent.$options.name;
-    while (parent && (!name || componentNames.indexOf(name) < 0)) {
-        parent = parent.$parent;
-        if (parent) name = parent.$options.name;
-    }
-    return parent;
+// addClass
+export function addClass(obj, cls){
+    var obj_class = obj.className;
+    var blank = (obj_class != '') ? ' ' : '';
+    var added = obj_class + blank + cls;
+    obj.className = added;
 }
-export {findComponentUpward};
-
-// Find component downward
-function findComponentDownward (content, componentName) {
-    const childrens = content.$children;
-    let children = null;
-
-    if (childrens.length) {
-        childrens.forEach(child => {
-            const name = child.$options.name;
-            if (name === componentName) {
-                children = child;
-            }
-        });
-
-        for (let i = 0; i < childrens.length; i++) {
-            const child = childrens[i];
-            const name = child.$options.name;
-            if (name === componentName) {
-                children = child;
-                break;
-            } else {
-                children = findComponentDownward(child, componentName);
-                if (children) break;
-            }
+// removeClass
+export function removeClass(obj, cls){
+    var obj_class = ' '+obj.className+' ';
+    obj_class = obj_class.replace(/(\s+)/gi, ' ');
+    var removed = obj_class.replace(' '+cls+' ', ' ');
+    removed = removed.replace(/(^\s+)|(\s+$)/g, '');
+    obj.className = removed;
+}
+// hasClass
+export function hasClass(obj, cls){
+    var obj_class = obj.className; // 获取 class 内容.
+    var obj_class_lst = obj_class.split(/\s+/); // 通过split空字符将cls转换成数组.
+    var x = 0;
+    for(x in obj_class_lst) {
+        if(obj_class_lst[x] == cls) {
+            // 循环数组, 判断是否包含cls
+            return true;
         }
     }
-    return children;
+    return false;
 }
-export {findComponentDownward};
-
-// Find components downward
-function findComponentsDownward (content, componentName, components = []) {
-    const childrens = content.$children;
-
-    if (childrens.length) {
-        childrens.forEach(child => {
-            const name = child.$options.name;
-            const childs = child.$children;
-
-            if (name === componentName) components.push(child);
-            if (childs.length) {
-                const findChilds = findComponentsDownward(child, componentName, components);
-                if (findChilds) components.concat(findChilds);
-            }
-        });
-    }
-    return components;
-}
-export {findComponentsDownward};
