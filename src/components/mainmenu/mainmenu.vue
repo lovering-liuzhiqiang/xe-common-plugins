@@ -1,26 +1,31 @@
 <template>
-    <div :class="classes">
+    <div :class="classes" id='content'>
         <div class="btn-mainmenu" @click='changeWidth'>
             <span class="xcms-iconfont icon-zhankaishouhui" :class='{"icon-act": menuflag }'></span>
         </div>
-        <ul>
-            <li v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
-                <el-tooltip effect="light" popper-class='mainmenu-tip' :disabled='tipflag' :content="item.menuName" placement="right">
-                    <a :href="item.url | scaleLinks">
-                        <em class="xcms-iconfont" :class="'icon-'+item.icon"></em>
-                        <span class='text'>
-                            {{item.menuName}}
-                        </span>
-                    </a>
-                </el-tooltip>
-            </li>
-        </ul>
+        <div class="content-box">
+            <ul id="box">
+                <li v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
+                    <el-tooltip effect="light" popper-class='mainmenu-tip' :disabled='tipflag' :content="item.menuName" placement="right">
+                        <a :href="item.url | scaleLinks">
+                            <em class="xcms-iconfont" :class="'icon-'+item.icon"></em>
+                            <span class='text'>
+                                {{item.menuName}}
+                            </span>
+                        </a>
+                    </el-tooltip>
+                </li>
+            </ul>
+        </div>
+        <div class="scroll" id="scroll">
+        	<div class="bar" id="bar"></div>
+        </div>
     </div>
 </template>
 <script type="text/ecmascript-6">
     import {scaleLinks} from '../../filters/';
     import {Tooltip} from 'element-ui';
-    //    import {getNowCookie, toObject, resetUserInfoCookie} from 'xcms-common-plugins/src/utils/';
+    import {addWheel} from '../../utils/';
     import { addClass, removeClass, getNowCookie} from '../../utils/';
     const prefixCls = 'xcms-mainmenu';
     export default {
@@ -28,6 +33,99 @@
             return {
                 menuflag: false
             };
+        },
+        mounted() {
+            this.$nextTick(() => {
+                // var oDiv = document.getElementById('div1');
+
+            	var oContent = document.getElementById('content');
+            	var oBox = document.getElementById('box');
+
+            	var oScroll = document.getElementById('scroll');
+            	var oBar = document.getElementById('bar');
+
+            	//拖拽
+            	oBar.onmousedown=function (ev) {
+            		var oEvent=ev||event;
+
+            		var disY=oEvent.clientY-oBar.offsetTop;
+
+            		document.onmousemove=function (ev)
+            		{
+            			var oEvent=ev||event;
+
+            			var t=oEvent.clientY-disY;
+
+            			setTop(t);
+            		};
+
+            		document.onmouseup=function ()
+            		{
+            			document.onmousemove=null;
+            			document.onmouseup=null;
+            		};
+
+            		return false;
+            	};
+
+            	//计算滚动条多高
+            	//oBar=oScroll*oContent/oBox
+
+            	var h=oScroll.offsetHeight*oContent.offsetHeight/oBox.offsetHeight;
+                console.log(oScroll.offsetHeight);
+                console.log(oContent.offsetHeight);
+                console.log(oBox.offsetHeight);
+            	if(oContent.offsetHeight>oBox.offsetHeight)
+            	{
+            		oScroll.style.display='none';
+            	}
+
+            	if(h<60)h=60;
+
+            	oBar.style.height=h+'px';
+
+            	function setTop(t){
+            		if(t<0)
+            		{
+            			t=0;
+            		}
+            		else if(t>oScroll.offsetHeight-oBar.offsetHeight)
+            		{
+            			t=oScroll.offsetHeight-oBar.offsetHeight;
+            		}
+
+            		oBar.style.top=t+'px';
+
+            		var scale=t/(oScroll.offsetHeight-oBar.offsetHeight);
+
+            		oBox.style.top=-(oBox.offsetHeight-oContent.offsetHeight+30)*scale+'px';
+            	}
+
+            	//鼠标滚轮
+            	addWheel(oContent, function (down){
+            		var t=0;
+
+            		if(down)
+            		{
+            			t=oBar.offsetTop+10;
+            		}
+            		else
+            		{
+            			t=oBar.offsetTop-10;
+            		}
+
+            		setTop(t);
+            	});
+
+                oScroll.style.display='none';
+                oContent.onmouseover = function() {
+                    oScroll.style.display = 'inline-block'
+                }
+                oContent.onmouseout = function() {
+                    oScroll.style.display = 'none'
+                }
+
+            });
         },
         computed: {
             hrefValue() {

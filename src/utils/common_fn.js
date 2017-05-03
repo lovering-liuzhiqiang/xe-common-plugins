@@ -80,13 +80,13 @@ export function getNowCookie() {
 
 // 全局续租更新TOKEN cookie
 export function resetTokenCookie(token_result) {
-    if (NODE_ENV === 'development') {
+    if (NODE_ENVS === 'development') {
         Cookies.set('token', token_result);
-    } else if (NODE_ENV === 'devend') {
+    } else if (NODE_ENVS === 'devend') {
         Cookies.set('USER_INFO_DEV', token_result, {domain: '.xianyiscm.com'});
-    } else if(NODE_ENV === 'test') {
+    } else if(NODE_ENVS === 'test') {
         Cookies.set('USER_INFO_TEST', token_result, {domain: '.xianyiscm.com'});
-    } else if(NODE_ENV === 'beta') {
+    } else if(NODE_ENVS === 'beta') {
         Cookies.set('USER_INFO_BETA', token_result, {domain: '.xianyiscm.com'});
     } else {
         Cookies.set('USER_INFO', token_result, {domain: '.xianyiscm.com'});

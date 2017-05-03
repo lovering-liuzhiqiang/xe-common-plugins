@@ -156,3 +156,37 @@ export function hasClass(obj, cls){
     }
     return false;
 }
+
+export function addWheel(oDiv, fn){
+	oDiv.onmousewheel=fnWheel;
+	if(oDiv.addEventListener)
+	{
+		oDiv.addEventListener('DOMMouseScroll', fnWheel, false);
+	}
+
+	function fnWheel(ev)
+	{
+		var oEvent=ev||event;
+
+		//alert(oEvent.wheelDelta);	//下		负
+		//alert(oEvent.detail);		//下		正
+
+		var down=true;
+		if(oEvent.wheelDelta)
+		{
+			down=oEvent.wheelDelta<0;
+		}
+		else
+		{
+			down=oEvent.detail>0;
+		}
+
+		fn(down);
+
+		if(oEvent.preventDefault)
+		{
+			oEvent.preventDefault();
+		}
+		return false;
+	}
+}

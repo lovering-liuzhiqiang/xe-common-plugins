@@ -4,10 +4,28 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
 .#{$mainmenu-prefix-cls} {
     background: #eef1f6;
     width: 120px;
+    padding-right: 10px;
     min-height: 500px;
     height: 100%;
+    overflow: hidden;
     border-right: 1px solid #e5e5e5;
     position: relative;
+    .scroll {
+        position: absolute;
+        right: -1px;
+        top: 30px;
+        bottom: 0;
+        width: 8px;
+        background: #E7E7E7;
+        .bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 80px;
+            background: #bbd4e5;
+        }
+    }
     &.#{$mainmenu-sort-prefix-cls} {
         width: 50px;
         li {
@@ -17,7 +35,7 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
         }
     }
     .btn-mainmenu {
-        width: 100%;
+        margin-right: -10px;
         height: 30px;
         line-height: 30px;
         background: #e5e5e5;
@@ -37,19 +55,25 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
             }
         }
     }
+    .content-box {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+    }
     ul {
         position: absolute;
         left: 0;
+        top: 0;
         right: 0;
-        top: 30px;
-        bottom: 0;
-        overflow-y: scroll;
     }
     li {
         height: 54px;
         line-height: 54px;
         border-top: 1px solid #e5e5e5;
-        text-align: center;
+        text-align: left;
         font-size: 14px;
         border-left: 2px solid #eef1f6;
         a {
@@ -65,8 +89,12 @@ $mainmenu-sort-prefix-cls: "#{$css-prefix}mainmenu-sort";
             display: inline-block;
             vertical-align: top;
             color: #666;
+            margin: 0 5px 0 15px;
         }
         .text {
+            width: 65px;
+            height: 54px;
+            overflow: hidden;
             display: inline-block;
             vertical-align: top;
         }
