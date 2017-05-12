@@ -11,8 +11,8 @@ console.log('====common_fn====');
 // 全局退出登录 -- 删除cookie
 export function logOut() {
     if (NODE_ENVS === 'development') {
-        Cookies.remove('userInfo');
-        Cookies.remove('token');
+        Cookies.remove('USER_INFO_DEV');
+        Cookies.remove('PASS_TOKEN_DEV');
     } else if (NODE_ENVS === 'devend') {
         Cookies.remove('USER_INFO_DEV', {domain: '.xianyiscm.com'});
         Cookies.remove('PASS_TOKEN_DEV', {domain: '.xianyiscm.com'});
@@ -52,8 +52,8 @@ export function getNowCookie() {
             userInfo = Cookies.get('USER_INFO_DEV');
             break;
         default :
-            token = Cookies.get('token');
-            userInfo = Cookies.get('userInfo');
+            token = Cookies.get('PASS_TOKEN_DEV');
+            userInfo = Cookies.get('USER_INFO_DEV');
     };
 
     if (!userInfo || !token) {
@@ -81,15 +81,15 @@ export function getNowCookie() {
 // 全局续租更新TOKEN cookie
 export function resetTokenCookie(token_result) {
     if (NODE_ENVS === 'development') {
-        Cookies.set('token', token_result);
+        Cookies.set('PASS_TOKEN_DEV', token_result);
     } else if (NODE_ENVS === 'devend') {
-        Cookies.set('USER_INFO_DEV', token_result, {domain: '.xianyiscm.com'});
+        Cookies.set('PASS_TOKEN_DEV', token_result, {domain: '.xianyiscm.com'});
     } else if(NODE_ENVS === 'test') {
-        Cookies.set('USER_INFO_TEST', token_result, {domain: '.xianyiscm.com'});
+        Cookies.set('PASS_TOKEN_TEST', token_result, {domain: '.xianyiscm.com'});
     } else if(NODE_ENVS === 'beta') {
-        Cookies.set('USER_INFO_BETA', token_result, {domain: '.xianyiscm.com'});
+        Cookies.set('PASS_TOKEN_BETA', token_result, {domain: '.xianyiscm.com'});
     } else {
-        Cookies.set('USER_INFO', token_result, {domain: '.xianyiscm.com'});
+        Cookies.set('PASS_TOKEN', token_result, {domain: '.xianyiscm.com'});
     }
 }
 
@@ -101,7 +101,7 @@ export function resetUserInfoCookie(result = {}, options = {}) {
     let settings = toObject([defaultOptions, options]);
     console.log(settings);
     if (NODE_ENVS === 'development') {
-        Cookies.set('userInfo', result);
+        Cookies.set('PASS_TOKEN_DEV', result);
     } else if (NODE_ENVS === 'devend') {
         Cookies.set('PASS_TOKEN_DEV', result, settings);
     } else if(NODE_ENVS === 'test') {
