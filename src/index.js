@@ -4,6 +4,8 @@ import Vue from 'vue';
 
 import filters from './filters/';
 
+console.log(filters);
+
 import xcmsheader from './components/header/';
 import mainmenu from './components/mainmenu/';
 
