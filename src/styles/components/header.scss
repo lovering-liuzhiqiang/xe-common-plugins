@@ -16,10 +16,8 @@ $header-prefix-cls: "#{$css-prefix}header";
     box-sizing: border-box;
     margin: 0 auto;
     height: 45px;
-    overflow:hidden;
     line-height: 45px;
     color: #fff;
-    opacity: .9;
     .logo {
       font-size: 18px;
       a {
@@ -27,14 +25,69 @@ $header-prefix-cls: "#{$css-prefix}header";
       }
     }
     .header-msg {
-      font-size: 12px;
-      em {
-        font-style: normal;
-      }
-      span {
-        margin-left: 5px;
-        opacity: .7;
-      }
+        height: 45px;
+        overflow: hidden;
+        font-size: 12px;
+        em {
+            font-style: normal;
+        }
+        span {
+            margin-left: 5px;
+            opacity: .7;
+        }
+    }
+    .header-search {
+        width: 300px;
+        height: 33px;
+        margin: 6px 40px 6px 0;
+        position: relative;
+        vertical-align: top;
+        .el-input {
+            height: 33px;
+            vertical-align: top;
+            border: none;
+            font-size: 12px;
+            .el-input__icon {
+                font-size: 18px;
+            }
+        }
+        .el-input__inner {
+            height: 33px;
+        }
+        .el-input__inner:focus, .el-input__inner:hover {
+            border-color: #bfcbd9;
+        }
+        .header-search-list {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 34px;
+            background: #fff;
+            border:1px solid #c2c2c2;
+            overflow: auto;
+            max-height: 240px;
+            border-radius: 2px;
+            ul {
+                margin-top: -1px;
+            }
+            li {
+                width: 100%;
+                font-size: 12px;
+                color: #333;
+                border-top: 1px solid #c3c3c3;
+                a {
+                    height: 33px;
+                    line-height: 33px;
+                    padding: 0 10px;
+                    display: block;
+                    color: #333;
+                    &:hover {
+                        background: #c3c3c3;
+                    }
+                }
+            }
+        }
     }
   }
   .headerDrop {
