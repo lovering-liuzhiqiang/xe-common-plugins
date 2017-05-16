@@ -1,4 +1,4 @@
- export function scaleLinks(url) {
+exports.scaleLinks = function (url) {
     if (!url) return;
     var urlTask = /^\//.test(url);
     var urlResult = url;
@@ -57,7 +57,7 @@
             return urlResult;
     };
 };
- export function fnScaleLinks(url) {
+exports.fnScaleLinks = function (url) {
   if (!url) return;
   var objs = ['/csc','/pdc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
   var regResult = false;

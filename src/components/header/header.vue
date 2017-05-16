@@ -33,13 +33,30 @@
                         <span @click.prevent='logInfn'>登录</span>
                     </template>
                 </div>
+                <div class="header-search fr">
+                    <form action="" @submit='searchSubmit'>
+                        <el-input
+                            v-model="searchWords"
+                            placeholder="可查询订单号、运输单号、客户单号"
+                            :on-icon-click="searchIconClick"
+                            icon="search">
+                        </el-input>
+                    </form>
+                    <div class="header-search-list" v-if='searchList.length'>
+                        <ul>
+                            <li v-for='item in searchList' :key='item'>
+                                <a :href="ofcUrl + item">{{item}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script type="text/ecmascript-6">
     const prefixCls = 'xcms-header';
-    import {Dropdown, DropdownMenu, DropdownItem} from 'element-ui';
+    import {Dropdown, DropdownMenu, DropdownItem, Input} from 'element-ui';
     import {logOut, getNowCookie} from '../../utils/';
     export default {
         name: 'xcmsHeader',
@@ -56,6 +73,9 @@
                 locationHref: 'http://localhost:8001/userauth/login',
                 locationForget: 'http://localhost:8001/home/userForgetpass',
                 locationPersonInfo: 'http://localhost:8001/home/PersonInfor',
+                searchWords: '',
+                searchList: [],
+                ofcUrl: ''
             };
         },
         created() {
@@ -87,9 +107,62 @@
         components: {
             'el-dropdown': Dropdown,
             'el-dropdown-menu': DropdownMenu,
-            'el-dropdown-item': DropdownItem
+            'el-dropdown-item': DropdownItem,
+            'el-input': Input
         },
         methods: {
+            searchIconClick() {
+                this.searchSubmit();
+            },
+            searchSubmit() {
+                switch (process.env.NODE_ENV) {
+                    // 生产
+                    case 'production':
+                        this.ofcUrl = 'http://paas.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                    break;
+                    // 预生产
+                    case 'beta':
+                        this.ofcUrl = 'http://paas-beta.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                    break;
+                    // 测试
+                    case 'test':
+                        this.ofcUrl = 'http://paas-test.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                    break;
+                    // 开发版-devend
+                    case 'devend':
+                        this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                    break;
+                    default:
+                        this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                }
+                this.$http({
+                    method: 'get',
+                    url: '/ofc/searchOverallOrder',
+                    params: {
+                        code: this.searchWords
+                    }
+                }).then(res => {
+                    console.log(res);
+                    if (res.result.length > 1) {
+                        this.searchList = res.result;
+                    } else {
+                        window.location.href = this.ofcUrl + res.result[0];
+                    }
+                }).catch(error => {
+                    if (error.result === undefined || error.result === null) {
+                        // 没有信息
+                        this.$xeMessage({
+                            message: '暂时未查询到信息！'
+                        });
+                    } else if (error.code === 403) {
+                        // 没有权限
+                        this.$xeMessage.error('没有权限');
+                    } else {
+                        this.$xeMessage.error(error.message);
+                    }
+                    console.log(error);
+                });
+            },
             handleCommand(command) {
                 switch (command) {
                     case 'a':
