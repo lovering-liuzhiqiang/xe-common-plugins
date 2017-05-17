@@ -161,7 +161,7 @@
                     }
                     this.$http({
                         method: 'get',
-                        baseUrl: projectLink.ofcApiBaseUrl,
+                        baseURL: projectLink.ofcApiBaseUrl,
                         url: '/ofc/searchOverallOrder',
                         params: {
                             code: this.searchWords
