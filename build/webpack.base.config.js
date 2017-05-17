@@ -62,7 +62,11 @@ module.exports = {
                     'sass-loader?indentedSyntax'
                 ]
             },
-            { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=8192'},
+            { test: /\.(gif|jpg|png)\??.*$/, loader: 'url-loader?limit=1000'},
+            {
+                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+                loader: 'file-loader'
+            },
             { test: /\.(html|tpl)$/, loader: 'html-loader' }
         ]
     },

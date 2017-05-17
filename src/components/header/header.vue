@@ -3,8 +3,12 @@
         <div class="headerWrapper">
             <div class="header">
                 <div class="logo fl">
-                    <a :href="pageIndexHref">鲜易供应链协同平台</a>
+                    <a :href="pageIndexHref">
+                        <img src="./logo.jpg" alt="">
+                    </a>
                 </div>
+                <div class="header-tit fl">运营工作台</div>
+                <div class="header-tips fl" :style="'background-image: url('+tipsimg+')'" v-if='tipsShow'>{{tipsText}}</div>
                 <div class='header-msg fr'>
                     <template v-if="loginName">
                             <el-dropdown class='headerDrop' @command="handleCommand">
@@ -34,18 +38,18 @@
                     </template>
                 </div>
                 <div class="header-search fr">
-                    <form action="" @submit='searchSubmit'>
+                    <form action="" @submit.prevent='searchSubmit()'>
                         <el-input
-                            v-model="searchWords"
+                            v-model.trim="searchWords"
                             placeholder="可查询订单号、运输单号、客户单号"
                             :on-icon-click="searchIconClick"
                             icon="search">
                         </el-input>
                     </form>
-                    <div class="header-search-list" v-if='searchList.length'>
+                    <div class="header-search-list" v-if='searchShow'>
                         <ul>
                             <li v-for='item in searchList' :key='item'>
-                                <a :href="ofcUrl + item">{{item}}</a>
+                                <a target="_blank" :href="ofcUrl + item">{{item}}</a>
                             </li>
                         </ul>
                     </div>
@@ -57,7 +61,8 @@
 <script type="text/ecmascript-6">
     const prefixCls = 'xcms-header';
     import {Dropdown, DropdownMenu, DropdownItem, Input} from 'element-ui';
-    import {logOut, getNowCookie} from '../../utils/';
+    import {logOut, getNowCookie, getHomeProjectLink} from '../../utils/';
+    let img = require('./test.png');
     export default {
         name: 'xcmsHeader',
         props: {
@@ -75,22 +80,30 @@
                 locationPersonInfo: 'http://localhost:8001/home/PersonInfor',
                 searchWords: '',
                 searchList: [],
-                ofcUrl: ''
+                ofcUrl: '',
+                searchShow: false,
+                tipsShow: true,
+                tipsText: '本地开发版',
+                tipsimg: img
             };
         },
         created() {
             var _this = this;
             switch (process.env.NODE_ENV) {
                 case 'production':
+                    this.tipsShow = false;
                     this.pageIndexHref = 'http://paas-web.xianyiscm.com/';
                     break;
                 case 'beta':
+                    this.tipsText = "预生产";
                     this.pageIndexHref = 'http://paas-web-beta.xianyiscm.com/';
                     break;
                 case 'test':
+                    this.tipsText = "测试版";
                     this.pageIndexHref = 'http://paas-web-test.xianyiscm.com/';
                     break;
                 case 'devend':
+                    this.tipsText = "开发版";
                     this.pageIndexHref = 'http://paas-web-dev.xianyiscm.com/';
                     break;
             };
@@ -110,58 +123,75 @@
             'el-dropdown-item': DropdownItem,
             'el-input': Input
         },
+        mounted() {
+            this.$nextTick(() => {
+                var _this = this;
+                document.querySelector('body').onclick = function() {
+                    _this.searchShow = false;
+                };
+            });
+        },
         methods: {
-            searchIconClick() {
+            searchIconClick(event) {
+                event.stopPropagation();
                 this.searchSubmit();
             },
             searchSubmit() {
-                switch (process.env.NODE_ENV) {
-                    // 生产
-                    case 'production':
-                        this.ofcUrl = 'http://paas.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
-                    break;
-                    // 预生产
-                    case 'beta':
-                        this.ofcUrl = 'http://paas-beta.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
-                    break;
-                    // 测试
-                    case 'test':
-                        this.ofcUrl = 'http://paas-test.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
-                    break;
-                    // 开发版-devend
-                    case 'devend':
-                        this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
-                    break;
-                    default:
-                        this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                let projectLink = getHomeProjectLink();
+                if (this.searchWords) {
+                    switch (process.env.NODE_ENV) {
+                        // 生产
+                        case 'production':
+                            this.ofcUrl = 'http://paas.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                        break;
+                        // 预生产
+                        case 'beta':
+                            this.ofcUrl = 'http://paas-beta.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                        break;
+                        // 测试
+                        case 'test':
+                            this.ofcUrl = 'http://paas-test.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                        break;
+                        // 开发版-devend
+                        case 'devend':
+                            this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                        break;
+                        default:
+                            this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                    }
+                    this.$http({
+                        method: 'get',
+                        baseUrl: projectLink.ofcApiBaseUrl,
+                        url: '/ofc/searchOverallOrder',
+                        params: {
+                            code: this.searchWords
+                        }
+                    }).then(res => {
+                        console.log(res);
+                        if (res.result.length > 1) {
+                            this.searchList = res.result;
+                            this.searchShow = true;
+                        } else {
+                            this.searchShow = false;
+                            window.location.href = this.ofcUrl + res.result[0];
+                        }
+                    }).catch(error => {
+                        this.searchShow = false;
+                        if (error.code !== 'xe404') {
+                            if (error.result === null) {
+                                // 没有信息
+                                this.$xeMessage({
+                                    message: '暂时未查询到信息！'
+                                });
+                            } else if (error.code === 403) {
+                                // 没有权限
+                                this.$xeMessage.error('没有权限');
+                            } else {
+                                this.$xeMessage.error(error.message);
+                            }
+                        }
+                    });
                 }
-                this.$http({
-                    method: 'get',
-                    url: '/ofc/searchOverallOrder',
-                    params: {
-                        code: this.searchWords
-                    }
-                }).then(res => {
-                    console.log(res);
-                    if (res.result.length > 1) {
-                        this.searchList = res.result;
-                    } else {
-                        window.location.href = this.ofcUrl + res.result[0];
-                    }
-                }).catch(error => {
-                    if (error.result === undefined || error.result === null) {
-                        // 没有信息
-                        this.$xeMessage({
-                            message: '暂时未查询到信息！'
-                        });
-                    } else if (error.code === 403) {
-                        // 没有权限
-                        this.$xeMessage.error('没有权限');
-                    } else {
-                        this.$xeMessage.error(error.message);
-                    }
-                    console.log(error);
-                });
             },
             handleCommand(command) {
                 switch (command) {

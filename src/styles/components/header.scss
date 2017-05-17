@@ -19,10 +19,26 @@ $header-prefix-cls: "#{$css-prefix}header";
     line-height: 45px;
     color: #fff;
     .logo {
-      font-size: 18px;
-      a {
+        width: 208px;
+        height: 45px;
+        a {
+            vertical-align: top;
+            color: #fff;
+        }
+    }
+    .header-tit {
+        padding: 0 10px;
+        border-left: 1px solid #3787b1;
+        border-right: 1px solid #3787b1;
+    }
+    .header-tips {
+        width: 100px;
+        height: 45px;
+        background-repeat: no-repeat;
+        background-position: center;
+        font-size: 12px;
         color: #fff;
-      }
+        text-align: center;
     }
     .header-msg {
         height: 45px;
@@ -59,6 +75,7 @@ $header-prefix-cls: "#{$css-prefix}header";
         }
         .header-search-list {
             width: 100%;
+            z-index: 33;
             position: absolute;
             left: 0;
             right: 0;
