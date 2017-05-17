@@ -115,7 +115,17 @@ export function resetUserInfoCookie(result = {}, options = {}) {
 
 // 非home项目跳home项目链接
 export function getHomeProjectLink() {
-    let apiBaseUrl = null;
+    let apiBaseUrl = null; //用户中心后台API地址
+    let ofcApiBaseUrl = null; //订单中心后台API地址
+    let rmcApiBaseUrl = null; //资源中心后台API地址
+    let cscApiBaseUrl = null; //客户中心后台API地址
+    let tfcApiBaseUrl = null; //运输中心后台API地址
+    let whcApiBaseUrl = null; //仓储中心后台API地址
+    let dpcApiBaseUrl = null; //调度中心后台API地址
+    let acApiBaseUrl = null; //结算中心后台API地址
+    let fcApiBaseUrl = null; //金融中心后台API地址
+    let adcApiBaseUrl = null; //数据中心后台API地址
+    let epcApiBaseUrl = null; //对接中心后台API地址
     let locationHref = null; // 跳转登录页链接
     let locationUserInit = null; // 跳转认证初始页链接
     let locationReject = null; // 跳转认证驳回页链接
@@ -124,6 +134,16 @@ export function getHomeProjectLink() {
     switch (NODE_ENVS) {
         case 'production':
             apiBaseUrl = 'http://paas.xianyiscm.com';
+            ofcApiBaseUrl = 'http://ofc.xianyiscm.com';
+            rmcApiBaseUrl = 'http://rmc.xianyiscm.com';
+            cscApiBaseUrl = 'http://csc.xianyiscm.com';
+            tfcApiBaseUrl = 'http://tfc.xianyiscm.com';
+            whcApiBaseUrl = 'http://whc.xianyiscm.com';
+            dpcApiBaseUrl = 'http://dpc.xianyiscm.com';
+            acApiBaseUrl = 'http://ac.xianyiscm.com';
+            fcApiBaseUrl = 'http://fc.xianyiscm.com';
+            adcApiBaseUrl = 'http://adc.xianyiscm.com';
+            epcApiBaseUrl = 'http://epc.xianyiscm.com';
             locationHref = 'http://paas-web.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web.xianyiscm.com/home/locationReject';
@@ -132,6 +152,16 @@ export function getHomeProjectLink() {
             break;
         case 'beta':
             apiBaseUrl = 'http://paas-beta.xianyiscm.com';
+            ofcApiBaseUrl = 'http://ofc-beta.xianyiscm.com';
+            rmcApiBaseUrl = 'http://rmc-beta.xianyiscm.com';
+            cscApiBaseUrl = 'http://csc-beta.xianyiscm.com';
+            tfcApiBaseUrl = 'http://tfc-beta.xianyiscm.com';
+            whcApiBaseUrl = 'http://whc-beta.xianyiscm.com';
+            dpcApiBaseUrl = 'http://dpc-beta.xianyiscm.com';
+            acApiBaseUrl = 'http://ac-beta.xianyiscm.com';
+            fcApiBaseUrl = 'http://fc-beta.xianyiscm.com';
+            adcApiBaseUrl = 'http://adc-beta.xianyiscm.com';
+            epcApiBaseUrl = 'http://epc-beta.xianyiscm.com';
             locationHref = 'http://paas-web-beta.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-beta.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-beta.xianyiscm.com/home/locationReject';
@@ -140,6 +170,16 @@ export function getHomeProjectLink() {
             break;
         case 'test':
             apiBaseUrl = 'http://paas-test.xianyiscm.com';
+            ofcApiBaseUrl = 'http://ofc-test.xianyiscm.com';
+            rmcApiBaseUrl = 'http://rmc-test.xianyiscm.com';
+            cscApiBaseUrl = 'http://csc-test.xianyiscm.com';
+            tfcApiBaseUrl = 'http://tfc-test.xianyiscm.com';
+            whcApiBaseUrl = 'http://whc-test.xianyiscm.com';
+            dpcApiBaseUrl = 'http://dpc-test.xianyiscm.com';
+            acApiBaseUrl = 'http://ac-test.xianyiscm.com';
+            fcApiBaseUrl = 'http://fc-test.xianyiscm.com';
+            adcApiBaseUrl = 'http://adc-test.xianyiscm.com';
+            epcApiBaseUrl = 'http://epc-test.xianyiscm.com';
             locationHref = 'http://paas-web-test.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-test.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-test.xianyiscm.com/home/locationReject';
@@ -148,6 +188,16 @@ export function getHomeProjectLink() {
             break;
         case 'devend':
             apiBaseUrl = 'http://paas-dev.xianyiscm.com';
+            ofcApiBaseUrl = 'http://ofc-dev.xianyiscm.com';
+            rmcApiBaseUrl = 'http://rmc-dev.xianyiscm.com';
+            cscApiBaseUrl = 'http://csc-dev.xianyiscm.com';
+            tfcApiBaseUrl = 'http://tfc-dev.xianyiscm.com';
+            whcApiBaseUrl = 'http://whc-dev.xianyiscm.com';
+            dpcApiBaseUrl = 'http://dpc-dev.xianyiscm.com';
+            acApiBaseUrl = 'http://ac-dev.xianyiscm.com';
+            fcApiBaseUrl = 'http://fc-dev.xianyiscm.com';
+            adcApiBaseUrl = 'http://adc-dev.xianyiscm.com';
+            epcApiBaseUrl = 'http://epc-dev.xianyiscm.com';
             locationHref = 'http://paas-web-dev.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-dev.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-dev.xianyiscm.com/home/locationReject';
@@ -156,6 +206,16 @@ export function getHomeProjectLink() {
             break;
         default:
             apiBaseUrl = '';
+            ofcApiBaseUrl = '';
+            rmcApiBaseUrl = '';
+            cscApiBaseUrl = '';
+            tfcApiBaseUrl = '';
+            whcApiBaseUrl = '';
+            dpcApiBaseUrl = '';
+            acApiBaseUrl = '';
+            fcApiBaseUrl = '';
+            adcApiBaseUrl = '';
+            epcApiBaseUrl = '';
             locationHref = 'http://localhost:8001/userauth/login';
             locationUserInit = 'http://localhost:8001/home/userinitial';
             locationReject = 'http://localhost:8001/home/locationReject';
@@ -164,6 +224,16 @@ export function getHomeProjectLink() {
     };
     return {
         apiBaseUrl: apiBaseUrl,
+        ofcApiBaseUrl:ofcApiBaseUrl,
+        rmcApiBaseUrl:rmcApiBaseUrl,
+        cscApiBaseUrl:cscApiBaseUrl,
+        tfcApiBaseUrl:tfcApiBaseUrl,
+        whcApiBaseUrl:whcApiBaseUrl,
+        dpcApiBaseUrl:dpcApiBaseUrl,
+        acApiBaseUrl:acApiBaseUrl,
+        fcApiBaseUrl:fcApiBaseUrl,
+        adcApiBaseUrl:adcApiBaseUrl,
+        epcApiBaseUrl:epcApiBaseUrl,
         locationHref: locationHref,
         locationUserInit: locationUserInit,
         locationReject: locationReject,
