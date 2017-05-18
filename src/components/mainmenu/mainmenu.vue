@@ -119,7 +119,12 @@
 
                 oScroll.style.display='none';
                 oContent.onmouseover = function() {
-                    oScroll.style.display = 'inline-block'
+                    if(oContent.offsetHeight>oBox.offsetHeight)
+                	{
+                		oScroll.style.display='none';
+                	} else {
+                        oScroll.style.display = 'inline-block'
+                    }
                 }
                 oContent.onmouseout = function() {
                     oScroll.style.display = 'none'
