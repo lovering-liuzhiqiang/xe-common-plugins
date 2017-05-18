@@ -14,8 +14,10 @@ exports.scaleLinks = function (url) {
         if(datas.length) {
             datas.some((item, index) => {
                 if (item.url === flag) {
-                    if (item.hasMenu) {
+                    if (item.hasMenu && item.subMenu[0].url !== '') {
                         result = item.subMenu[0];
+                    } else {
+                        result = item.subMenu[0].subMenu[0];
                     }
                     return true;
                 }
