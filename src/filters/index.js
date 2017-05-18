@@ -9,7 +9,7 @@ exports.scaleLinks = function (url) {
 
     var objs = {
         '/csc': '/index#/csc/customer/toMaintainCscCustomerListPage',
-        '/pdc': '/index#/pdc/serviceLevelAgreement',
+        // '/pdc': '/index#/pdc/serviceLevelAgreement',
         '/rmc': '/index#/rmc/lineoften/toMaintainLineOftenListPage',
         '/ofc': '/index#/ofc/tranLoad',
         '/dpc': '/index#/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage',
@@ -59,7 +59,7 @@ exports.scaleLinks = function (url) {
 };
 exports.fnScaleLinks = function (url) {
   if (!url) return;
-  var objs = ['/csc','/pdc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
+  var objs = ['/csc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
   var regResult = false;
   for (var i=0;i<objs.length;i++){
     var patternUrl = new RegExp("^" + objs[i]);
