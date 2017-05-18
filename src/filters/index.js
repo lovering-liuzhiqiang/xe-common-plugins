@@ -75,7 +75,7 @@ exports.scaleLinks = function (url) {
 };
 exports.fnScaleLinks = function (url) {
   if (!url) return;
-  var objs = ['/csc','/pdc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
+  var objs = ['/csc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
   var regResult = false;
   for (var i=0;i<objs.length;i++){
     var patternUrl = new RegExp("^" + objs[i]);
