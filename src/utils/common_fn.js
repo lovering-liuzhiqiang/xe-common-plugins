@@ -126,6 +126,7 @@ export function getHomeProjectLink() {
     let fcApiBaseUrl = null; //金融中心后台API地址
     let adcApiBaseUrl = null; //数据中心后台API地址
     let epcApiBaseUrl = null; //对接中心后台API地址
+    let pdcApiBaseUrl = null; //产品中心后天API地址
     let locationHref = null; // 跳转登录页链接
     let locationUserInit = null; // 跳转认证初始页链接
     let locationReject = null; // 跳转认证驳回页链接
@@ -144,6 +145,7 @@ export function getHomeProjectLink() {
             fcApiBaseUrl = 'http://fc.xianyiscm.com';
             adcApiBaseUrl = 'http://adc.xianyiscm.com';
             epcApiBaseUrl = 'http://epc.xianyiscm.com';
+            pdcApiBaseUrl = 'http://pdc.xianyiscm.com';
             locationHref = 'http://paas-web.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web.xianyiscm.com/home/locationReject';
@@ -162,6 +164,7 @@ export function getHomeProjectLink() {
             fcApiBaseUrl = 'http://fc-beta.xianyiscm.com';
             adcApiBaseUrl = 'http://adc-beta.xianyiscm.com';
             epcApiBaseUrl = 'http://epc-beta.xianyiscm.com';
+            pdcApiBaseUrl = 'http://pdc-beta.xianyiscm.com';
             locationHref = 'http://paas-web-beta.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-beta.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-beta.xianyiscm.com/home/locationReject';
@@ -180,6 +183,7 @@ export function getHomeProjectLink() {
             fcApiBaseUrl = 'http://fc-test.xianyiscm.com';
             adcApiBaseUrl = 'http://adc-test.xianyiscm.com';
             epcApiBaseUrl = 'http://epc-test.xianyiscm.com';
+            pdcApiBaseUrl = 'http://pdc-test.xianyiscm.com';
             locationHref = 'http://paas-web-test.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-test.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-test.xianyiscm.com/home/locationReject';
@@ -198,6 +202,7 @@ export function getHomeProjectLink() {
             fcApiBaseUrl = 'http://fc-dev.xianyiscm.com';
             adcApiBaseUrl = 'http://adc-dev.xianyiscm.com';
             epcApiBaseUrl = 'http://epc-dev.xianyiscm.com';
+            pdcApiBaseUrl = 'http://pdc-dev.xianyiscm.com';
             locationHref = 'http://paas-web-dev.xianyiscm.com/userauth/login';
             locationUserInit = 'http://paas-web-dev.xianyiscm.com/home/userinitial';
             locationReject = 'http://paas-web-dev.xianyiscm.com/home/locationReject';
@@ -216,6 +221,7 @@ export function getHomeProjectLink() {
             fcApiBaseUrl = '';
             adcApiBaseUrl = '';
             epcApiBaseUrl = '';
+            pdcApiBaseUrl = '';
             locationHref = 'http://localhost:8001/userauth/login';
             locationUserInit = 'http://localhost:8001/home/userinitial';
             locationReject = 'http://localhost:8001/home/locationReject';
@@ -234,6 +240,7 @@ export function getHomeProjectLink() {
         fcApiBaseUrl: fcApiBaseUrl,
         adcApiBaseUrl: adcApiBaseUrl,
         epcApiBaseUrl: epcApiBaseUrl,
+        pdcApiBaseUrl: pdcApiBaseUrl,
         locationHref: locationHref,
         locationUserInit: locationUserInit,
         locationReject: locationReject,
