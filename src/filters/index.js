@@ -7,36 +7,40 @@ exports.scaleLinks = function (url) {
     }
     console.log(urlResult);
 
-    function menuData(flag) {
+    function menuDataOld(flag) {
         var menuList = window.localStorage.getItem('menuList');
         var datas = menuList ? JSON.parse(menuList) : [];
         var result = {};
         if(datas.length) {
             datas.some((item, index) => {
                 if (item.url === flag) {
-                    if (item.hasMenu && item.subMenu[0].url !== '') {
-                        result = item.subMenu[0];
+                    if (item.hasMenu) {
+                        if (item.subMenu[0].url === '') {
+                            result = item.subMenu[0].subMenu[0];
+                        } else {
+                            result = item.subMenu[0];
+                        }
                     } else {
-                        result = item.subMenu[0].subMenu[0];
+                        result = item;
                     }
                     return true;
                 }
             });
-        }
+        };
         return result;
     };
 
     var objs = {
-        '/csc': '/index#' + (menuData('/csc').url ? menuData('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
-        '/pdc': '/index#' + (menuData('/pdc').url ? menuData('/pdc').url : '/pdc/serviceLevelAgreement'),
-        '/rmc': '/index#' + (menuData('/rmc').url ? menuData('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
-        '/ofc': '/index#' + (menuData('/ofc').url ? menuData('/ofc').url : '/ofc/tranLoad'),
-        '/dpc': '/index#' + (menuData('/dpc').url ? menuData('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
-        '/whc': '/index#' + (menuData('/whc').url ? menuData('/whc').url : '/whc/page/toMaintainInventoryPage'),
-        '/tfc': '/index#' + (menuData('/tfc').url ? menuData('/tfc').url : '/tfc/transport/toTransportListPage'),
-        '/epc': '/index#' + (menuData('/epc').url ? menuData('/epc').url : '/epc/log/toRecordMapListPage'),
-        '/ac': '/index#' + (menuData('/ac').url ? menuData('/ac').url : '/ac/transport/transportReceivable'),
-        '/adc': '/index#' + (menuData('/adc').url ? menuData('/adc').url : '/adc/financialStatements/transport')
+        '/csc': '/index#' + (menuDataOld('/csc').url ? menuDataOld('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
+        '/pdc': '/index#' + (menuDataOld('/pdc').url ? menuDataOld('/pdc').url : '/pdc/serviceLevelAgreement'),
+        '/rmc': '/index#' + (menuDataOld('/rmc').url ? menuDataOld('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
+        '/ofc': '/index#' + (menuDataOld('/ofc').url ? menuDataOld('/ofc').url : '/ofc/tranLoad'),
+        '/dpc': '/index#' + (menuDataOld('/dpc').url ? menuDataOld('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
+        '/whc': '/index#' + (menuDataOld('/whc').url ? menuDataOld('/whc').url : '/whc/page/toMaintainInventoryPage'),
+        '/tfc': '/index#' + (menuDataOld('/tfc').url ? menuDataOld('/tfc').url : '/tfc/transport/toTransportListPage'),
+        '/epc': '/index#' + (menuDataOld('/epc').url ? menuDataOld('/epc').url : '/epc/log/toRecordMapListPage'),
+        '/ac': '/index#' + (menuDataOld('/ac').url ? menuDataOld('/ac').url : '/ac/transport/transportReceivable'),
+        '/adc': '/index#' + (menuDataOld('/adc').url ? menuDataOld('/adc').url : '/adc/financialStatements/transport')
     }
     switch (process.env.NODE_ENV) {
         // 生产
