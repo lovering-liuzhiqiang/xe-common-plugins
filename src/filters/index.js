@@ -31,16 +31,15 @@ exports.scaleLinks = function (url) {
     };
 
     var objs = {
-        '/csc': '/index#' + (menuDataOld('/csc').url ? menuDataOld('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
-        '/pdc': '/index#' + (menuDataOld('/pdc').url ? menuDataOld('/pdc').url : '/pdc/serviceLevelAgreement'),
-        '/rmc': '/index#' + (menuDataOld('/rmc').url ? menuDataOld('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
-        '/ofc': '/index#' + (menuDataOld('/ofc').url ? menuDataOld('/ofc').url : '/ofc/tranLoad'),
-        '/dpc': '/index#' + (menuDataOld('/dpc').url ? menuDataOld('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
-        '/whc': '/index#' + (menuDataOld('/whc').url ? menuDataOld('/whc').url : '/whc/page/toMaintainInventoryPage'),
-        '/tfc': '/index#' + (menuDataOld('/tfc').url ? menuDataOld('/tfc').url : '/tfc/transport/toTransportListPage'),
-        '/epc': '/index#' + (menuDataOld('/epc').url ? menuDataOld('/epc').url : '/epc/log/toRecordMapListPage'),
-        '/ac': '/index#' + (menuDataOld('/ac').url ? menuDataOld('/ac').url : '/ac/transport/transportReceivable'),
-        '/adc': '/index#' + (menuDataOld('/adc').url ? menuDataOld('/adc').url : '/adc/financialStatements/transport')
+        '/csc': '/index#' + (menuData('/csc').url ? menuData('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
+        '/rmc': '/index#' + (menuData('/rmc').url ? menuData('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
+        '/ofc': '/index#' + (menuData('/ofc').url ? menuData('/ofc').url : '/ofc/tranLoad'),
+        '/dpc': '/index#' + (menuData('/dpc').url ? menuData('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
+        '/whc': '/index#' + (menuData('/whc').url ? menuData('/whc').url : '/whc/page/toMaintainInventoryPage'),
+        '/tfc': '/index#' + (menuData('/tfc').url ? menuData('/tfc').url : '/tfc/transport/toTransportListPage'),
+        '/epc': '/index#' + (menuData('/epc').url ? menuData('/epc').url : '/epc/log/toRecordMapListPage'),
+        '/ac': '/index#' + (menuData('/ac').url ? menuData('/ac').url : '/ac/transport/transportReceivable'),
+        '/adc': '/index#' + (menuData('/adc').url ? menuData('/adc').url : '/adc/financialStatements/transport')
     }
     switch (process.env.NODE_ENV) {
         // 生产
