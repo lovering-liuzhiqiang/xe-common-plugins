@@ -28,7 +28,6 @@ exports.scaleLinks = function (url) {
 
     var objs = {
         '/csc': '/index#' + (menuData('/csc').url ? menuData('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
-        '/pdc': '/index#' + (menuData('/pdc').url ? menuData('/pdc').url : '/pdc/serviceLevelAgreement'),
         '/rmc': '/index#' + (menuData('/rmc').url ? menuData('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
         '/ofc': '/index#' + (menuData('/ofc').url ? menuData('/ofc').url : '/ofc/tranLoad'),
         '/dpc': '/index#' + (menuData('/dpc').url ? menuData('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
