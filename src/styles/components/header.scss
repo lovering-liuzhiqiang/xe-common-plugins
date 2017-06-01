@@ -18,6 +18,80 @@ $header-prefix-cls: "#{$css-prefix}header";
     height: 45px;
     line-height: 45px;
     color: #fff;
+    .header-input-panel {
+      padding-right: 94px;
+      font-size: 0;
+      >div {
+          display: inline-block;
+          padding: 0 20px;
+          line-height: 45px;
+          font-size: 14px;
+          border-left: 2px solid #337faa;
+          img {
+            vertical-align: middle;
+          }
+        .header-search {
+          width: 300px;
+          height: 33px;
+          margin: 6px 0px 6px -20px;
+          position: absolute;
+          vertical-align: top;
+          .el-input {
+            height: 33px;
+            vertical-align: top;
+            border: none;
+            font-size: 12px;
+            .el-input__icon {
+              font-size: 18px;
+            }
+          }
+          .el-input__inner {
+            height: 33px;
+          }
+          .el-input__inner:focus, .el-input__inner:hover {
+            border-color: #bfcbd9;
+          }
+          .header-search-list {
+            width: 100%;
+            z-index: 33;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 34px;
+            background: #fff;
+            border:1px solid #c2c2c2;
+            overflow: auto;
+            max-height: 240px;
+            border-radius: 2px;
+            ul {
+              margin-top: -1px;
+            }
+            li {
+              width: 100%;
+              font-size: 12px;
+              color: #333;
+              border-top: 1px solid #c3c3c3;
+              a {
+                height: 33px;
+                line-height: 33px;
+                padding: 0 10px;
+                display: block;
+                color: #333;
+                &:hover {
+                  background: #c3c3c3;
+                }
+              }
+            }
+          }
+        }
+      }
+      >div:last-child {
+        border-right: 2px solid #337faa;
+      }
+    }
+    //.header-input-panel:before {
+    //  background-image: url("../../components/header/www_03.gif");
+    //}
     .logo {
         width: 208px;
         height: 45px;
@@ -50,60 +124,6 @@ $header-prefix-cls: "#{$css-prefix}header";
         span {
             margin-left: 5px;
             opacity: .7;
-        }
-    }
-    .header-search {
-        width: 300px;
-        height: 33px;
-        margin: 6px 40px 6px 0;
-        position: relative;
-        vertical-align: top;
-        .el-input {
-            height: 33px;
-            vertical-align: top;
-            border: none;
-            font-size: 12px;
-            .el-input__icon {
-                font-size: 18px;
-            }
-        }
-        .el-input__inner {
-            height: 33px;
-        }
-        .el-input__inner:focus, .el-input__inner:hover {
-            border-color: #bfcbd9;
-        }
-        .header-search-list {
-            width: 100%;
-            z-index: 33;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 34px;
-            background: #fff;
-            border:1px solid #c2c2c2;
-            overflow: auto;
-            max-height: 240px;
-            border-radius: 2px;
-            ul {
-                margin-top: -1px;
-            }
-            li {
-                width: 100%;
-                font-size: 12px;
-                color: #333;
-                border-top: 1px solid #c3c3c3;
-                a {
-                    height: 33px;
-                    line-height: 33px;
-                    padding: 0 10px;
-                    display: block;
-                    color: #333;
-                    &:hover {
-                        background: #c3c3c3;
-                    }
-                }
-            }
         }
     }
   }

@@ -37,21 +37,35 @@
                         <span @click.prevent='logInfn'>登录</span>
                     </template>
                 </div>
-                <div class="header-search fr">
-                    <form action="" @submit.prevent='searchSubmit()'>
-                        <el-input
-                            v-model.trim="searchWords"
-                            placeholder="可查询订单号、运输单号、客户单号"
-                            :on-icon-click="searchIconClick"
-                            icon="search">
-                        </el-input>
-                    </form>
-                    <div class="header-search-list" v-if='searchShow'>
-                        <ul>
-                            <li v-for='item in searchList' :key='item'>
-                                <a target="_blank" :href="ofcUrl + item">{{item}}</a>
-                            </li>
-                        </ul>
+                <div class="header-input-panel fr">
+                    <div @mouseover.self.stop="mouseSearch">
+                        <img src="./nby_03.png" alt="">
+                        <span>搜索</span>
+                        <div class="header-search" v-if="searchIsShow">
+                            <form action="" @submit.prevent='searchSubmit()'>
+                                <el-input
+                                v-model.trim="searchWords"
+                                placeholder="可查询订单号、运输单号、客户单号"
+                                :on-icon-click="searchIconClick"
+                                icon="search">
+                                </el-input>
+                            </form>
+                            <div class="header-search-list" v-show='searchShow'>
+                                <ul>
+                                    <li v-for='item in searchList' :key='item'>
+                                        <a target="_blank" :href="ofcUrl + item">{{item}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="./nby_05.png" alt="">
+                        <span>帮助</span>
+                    </div>
+                    <div>
+                        <img src="./nby_07.png" alt="">
+                        <span>新手</span>
                     </div>
                 </div>
             </div>
@@ -84,7 +98,8 @@
                 searchShow: false,
                 tipsShow: true,
                 tipsText: '本地开发版',
-                tipsimg: img
+                tipsimg: img,
+                searchIsShow: false
             };
         },
         created() {
@@ -233,6 +248,10 @@
             getUserInfo() {
                 var nowCookie = getNowCookie();
                 this.loginName = nowCookie.userInfo.loginName;
+            },
+            mouseSearch() {
+                console.log('mouseSearch');
+                this.searchIsShow = true;
             }
         },
         computed: {

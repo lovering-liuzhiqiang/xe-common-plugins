@@ -5,7 +5,7 @@
         </div>
         <div class="content-box">
             <ul id="box">
-                <li v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
+                <li @mouseenter='overfn' @mouseleave='outfn' v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
                     <el-tooltip effect="light" popper-class='mainmenu-tip' :disabled='tipflag' :content="item.menuName" placement="right">
                         <a :href="item.url | scaleLinks">
                             <em class="xcms-iconfont" :class="'icon-'+item.icon"></em>
@@ -29,9 +29,21 @@
     import { addClass, removeClass, getNowCookie} from '../../utils/';
     const prefixCls = 'xcms-mainmenu';
     export default {
+        props: {
+            menustatus: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 menuflag: false
+            };
+        },
+        created() {
+            this.menuflag = this.menustatus;
+            if (this.menuflag) {
+                addClass(document.querySelector('body'), 'body-mainmenu-sort');
             };
         },
         mounted() {
@@ -162,6 +174,12 @@
             }
         },
         methods: {
+            overfn(event) {
+                addClass(event.target || event.srcElement, 'active');
+            },
+            outfn() {
+                removeClass(event.target || event.srcElement, 'active');
+            },
             menuItemClick(flag, event) {
                 console.log(flag);
                 if (flag) {
