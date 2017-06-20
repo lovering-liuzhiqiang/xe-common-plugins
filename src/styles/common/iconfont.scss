@@ -1,11 +1,10 @@
 
-@font-face {
-    font-family: "xcms-iconfont";
-    src: url(./fonts/iconfont.eot?t=1491969292228); /* IE9*/
-    src: url(./fonts/iconfont.eot?t=1491969292228#iefix) format('embedded-opentype'), /* IE6-IE8 */
-    url(./fonts/iconfont.woff?t=1491969292228) format('woff'), /* chrome, firefox */
-    url(./fonts/iconfont.ttf?t=1491969292228) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url(./fonts/iconfont.svg?t=1491969292228#iconfont) format('svg'); /* iOS 4.1- */
+@font-face {font-family: "xcms-iconfont";
+  src: url('./fonts/iconfont.eot?t=1497845801794'); /* IE9*/
+  src: url('./fonts/iconfont.eot?t=1497845801794#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('./fonts/iconfont.woff?t=1497845801794') format('woff'), /* chrome, firefox */
+  url('./fonts/iconfont.ttf?t=1497845801794') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('./fonts/iconfont.svg?t=1497845801794#xcms-iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .xcms-iconfont {
@@ -16,31 +15,75 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-fa-truck:before { content: "\e92b"; } // 配送中心
+.icon-zhankaishouhui:before { content: "\e603"; }
 
-.icon-fa-fax:before { content: "\e92c"; } // 结算中心
+.icon-fa-22:before { content: "\e604"; }
 
-.icon-fa-jsfiddle:before { content: "\e92d"; } // 数据分析
+.icon-fa-21:before { content: "\e605"; }
 
-.icon-fa-sliders:before { content: "\e92e"; } // 调度中心
+.icon-fa-20:before { content: "\e606"; }
 
-.icon-fa-building:before { content: "\e92f"; } // 仓储中心
+.icon-fa-19:before { content: "\e607"; }
 
-.icon-fa-clipboard:before { content: "\e930"; } // 对接中心
+.icon-fa-18:before { content: "\e608"; }
 
-.icon-fa-barcode:before { content: "\e931"; } // 订单中心
+.icon-fa-17:before { content: "\e609"; }
 
-.icon-fa-users:before { content: "\e932"; } // 客户中心
+.icon-fa-16:before { content: "\e60a"; }
 
-.icon-fa-envelope:before { content: "\e933"; } //客服中心
+.icon-fa-15:before { content: "\e60b"; }
 
-.icon-fa-database:before { content: "\e934"; } // 资源中心
+.icon-fa-14:before { content: "\e60c"; }
 
-.icon-lubanqihao:before { content: "\e935"; } // 鲁班七号
-.icon-fa-test:before { content: "\e93a"; } // 测试
+.icon-fa-13:before { content: "\e60d"; }
 
-.icon-fa-user:before { content: "\e936"; } // 用户中心
+.icon-fa-12:before { content: "\e60e"; }
 
-.icon-fa-cubes:before { content: "\e937"; } // 产品中心
+.icon-fa-11:before { content: "\e60f"; }
 
-.icon-zhankaishouhui:before { content: "\e938"; } // 主menu展开收缩
+.icon-fa-10:before { content: "\e610"; }
+
+.icon-fa-09:before { content: "\e611"; }
+
+.icon-fa-08:before { content: "\e612"; }
+
+.icon-fa-07:before { content: "\e613"; }
+
+.icon-fa-06:before { content: "\e614"; }
+
+.icon-fa-05:before { content: "\e615"; }
+
+.icon-fa-04:before { content: "\e616"; }
+
+.icon-fa-03:before { content: "\e617"; }
+
+.icon-fa-02:before { content: "\e618"; }
+
+.icon-fa-01:before { content: "\e619"; }
+
+.icon-fa-truck:before { content: "\e61a"; }
+
+.icon-fa-fax:before { content: "\e61b"; }
+
+.icon-fa-jsfiddle:before { content: "\e61c"; }
+
+.icon-fa-sliders:before { content: "\e61d"; }
+
+.icon-fa-23:before { content: "\e61e"; }
+
+.icon-fa-barcode:before { content: "\e61f"; }
+
+.icon-fa-database:before { content: "\e620"; }
+
+.icon-fa-user:before { content: "\e621"; }
+
+.icon-fa-cubes:before { content: "\e622"; }
+
+.icon-fa-envelope:before { content: "\e623"; }
+
+.icon-fa-clipboard:before { content: "\e625"; }
+
+.icon-fa-building:before { content: "\e626"; }
+
+.icon-fa-users:before { content: "\e627"; }
+

@@ -8,7 +8,7 @@
                 <li @mouseenter='overfn' @mouseleave='outfn' v-for="(item, pindex) in menuData" :key="item.id" :class="{'active': item.url ? new RegExp(item.url, 'g').test(hrefValue) : false}" @click="menuItemClick(item.url ? new RegExp(item.url, 'g').test(hrefValue) : false, $event)">
                     <el-tooltip effect="light" popper-class='mainmenu-tip' :disabled='tipflag' :content="item.menuName" placement="right">
                         <a :href="item.url | scaleLinks">
-                            <em class="xcms-iconfont" :class="'icon-'+item.icon"></em>
+                            <em class="xcms-iconfont" :class="item.icon"></em>
                             <span class='text'>
                                 {{item.menuName}}
                             </span>
@@ -84,9 +84,9 @@
             	//oBar=oScroll*oContent/oBox
 
             	var h=oScroll.offsetHeight*oContent.offsetHeight/oBox.offsetHeight;
-                console.log(oScroll.offsetHeight);
-                console.log(oContent.offsetHeight);
-                console.log(oBox.offsetHeight);
+//                console.log(oScroll.offsetHeight);
+//                console.log(oContent.offsetHeight);
+//                console.log(oBox.offsetHeight);
             	if(oContent.offsetHeight>oBox.offsetHeight)
             	{
             		oScroll.style.display='none';
@@ -169,7 +169,6 @@
                         result.push(item);
                     });
                 }
-                console.log(result);
                 return result;
             }
         },
@@ -181,13 +180,11 @@
                 removeClass(event.target || event.srcElement, 'active');
             },
             menuItemClick(flag, event) {
-                console.log(flag);
                 if (flag) {
                     event.preventDefault();
                 }
                 // 判断是否认证信息
                 var approveFlag = getNowCookie().userInfo.userStatus;
-                console.log(approveFlag);
                 switch (approveFlag) {
                     case '100' :
                         // 未认证
@@ -199,11 +196,9 @@
                     case '200' :
                         // 认证中
                         event.preventDefault();
-                        console.log(123123123);
                         this.$router.replace({
                             name: 'userauthentication'
                         });
-                        console.log(123123123);
                         break;
                     case '300' :
                         // 驳回

@@ -19,6 +19,7 @@ $header-prefix-cls: "#{$css-prefix}header";
     line-height: 45px;
     color: #fff;
     .header-input-panel {
+      position: relative;
       padding-right: 94px;
       font-size: 0;
       >div {
@@ -32,9 +33,10 @@ $header-prefix-cls: "#{$css-prefix}header";
           }
         .header-search {
           width: 300px;
-          height: 33px;
-          margin: 6px 0px 6px -20px;
+          margin: 0px 0px 0px -230px;
+          padding: 6px 0;
           position: absolute;
+          top: 0;
           vertical-align: top;
           .el-input {
             height: 33px;
@@ -169,4 +171,12 @@ $header-prefix-cls: "#{$css-prefix}header";
         font-size: 12px;
         line-height: 30px;
     }
+}
+
+.xe-video-dialog .el-dialog {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.xe-video-dialog .xe-noneImg {
+  width: 100%;
 }

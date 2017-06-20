@@ -38,7 +38,7 @@
                     </template>
                 </div>
                 <div class="header-input-panel fr">
-                    <div @mouseover.self.stop="mouseSearch">
+                    <div @mouseenter.self.stop="mouseSearch" @mouseleave.stop="outSearch" ref="search">
                         <img src="./nby_03.png" alt="">
                         <span>搜索</span>
                         <div class="header-search" v-if="searchIsShow">
@@ -59,22 +59,27 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div @click="helpClick">
                         <img src="./nby_05.png" alt="">
                         <span>帮助</span>
                     </div>
-                    <div>
-                        <img src="./nby_07.png" alt="">
-                        <span>新手</span>
-                    </div>
+                    <!--<div>-->
+                        <!--<img src="./nby_07.png" alt="">-->
+                        <!--<span>新手</span>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
+        <el-dialog class="xe-video-dialog" title="帮助视频" v-model="dialogVisible" size="small">
+            <div  id="J_prismPlayer" class="prism-player" v-if="!noneImgShow">
+            </div>
+            <img v-if="noneImgShow" class="xe-noneImg" src="./none.gif" alt="没有视频">
+        </el-dialog>
     </div>
 </template>
 <script type="text/ecmascript-6">
     const prefixCls = 'xcms-header';
-    import {Dropdown, DropdownMenu, DropdownItem, Input} from 'element-ui';
+    import {Dropdown, DropdownMenu, DropdownItem, Input, Dialog} from 'element-ui';
     import {logOut, getNowCookie, getHomeProjectLink} from '../../utils/';
     let img = require('./test.png');
     export default {
@@ -99,7 +104,10 @@
                 tipsShow: true,
                 tipsText: '本地开发版',
                 tipsimg: img,
-                searchIsShow: false
+                searchIsShow: false,
+                dialogVisible: false,
+                videoId: undefined,
+                noneImgShow: false
             };
         },
         created() {
@@ -136,9 +144,11 @@
             'el-dropdown': Dropdown,
             'el-dropdown-menu': DropdownMenu,
             'el-dropdown-item': DropdownItem,
-            'el-input': Input
+            'el-input': Input,
+            'el-dialog': Dialog
         },
         mounted() {
+            this.insertSdk();
             this.$nextTick(() => {
                 var _this = this;
                 document.querySelector('body').onclick = function() {
@@ -182,7 +192,6 @@
                             code: this.searchWords
                         }
                     }).then(res => {
-                        console.log(res);
                         if (res.result.length > 1) {
                             this.searchList = res.result;
                             this.searchShow = true;
@@ -250,8 +259,65 @@
                 this.loginName = nowCookie.userInfo.loginName;
             },
             mouseSearch() {
-                console.log('mouseSearch');
                 this.searchIsShow = true;
+            },
+            outSearch(event) {
+                this.searchIsShow = false;
+            },
+            insertSdk() {
+                let link = document.createElement('link');
+                link.type = 'text/css';
+                link.rel = 'stylesheet';
+                link.href = 'http://g.alicdn.com/de/prismplayer/1.7.6/skins/default/index-min.css';
+                document.querySelector('head').appendChild(link);
+                let script = document.createElement('script');
+                script.src = 'http://g.alicdn.com/de/prismplayer/1.7.6/prism-min.js';
+                document.querySelector('head').appendChild(script);
+            },
+            helpClick() {
+                this.videoId = window.localStorage.getItem('currentVideoId');
+                console.log('videoId', this.videoId);
+                if (this.videoId) {
+                    this.InitPlayer(this.videoId);
+                } else {
+                    this.dialogVisible = true;
+                    this.noneImgShow = true;
+                }
+
+            },
+            InitPlayer(videoId) {
+                let projectLink = getHomeProjectLink();
+                var _this = this;
+                _this.$http({
+                    method: 'POST',
+                    url: projectLink.apiBaseUrl + '/page/uam/menu/common/getVideoPlayAuthResponseByVideoId/' + videoId
+                }).then((res) => {
+                    _this.dialogVisible = true;
+                    _this.noneImgShow = false;
+                    this.$nextTick(() => {
+                        var player = new prismplayer({
+                            id: "J_prismPlayer",
+                            autoplay: true,
+                            width: "100%",
+                            height: "400px",
+                            vid: videoId,
+                            playauth: res.result.playAuth,
+                        });
+                    });
+                }).catch((err) => {
+
+                });
+//                this.dialogVisible = true;
+//                this.noneImgShow = false;
+//                this.$nextTick(() => {
+//                    var player = new prismplayer({
+//                        id: "videoPanel",    // 容器id
+//                        source: videoUrl,  // 视频url 支持互联网可直接访问的视频地址
+//                        autoplay: true,       // 自动播放
+//                        width: "100%",        // 播放器宽度
+//                        height: "400px"      // 播放器高度
+//                    });
+//                });
             }
         },
         computed: {

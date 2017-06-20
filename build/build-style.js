@@ -19,8 +19,8 @@ gulp.task('css', function () {
 
 // 拷贝字体文件
 gulp.task('fonts', function () {
-    gulp.src('../src/styles/common/iconfont/fonts/*.*')
-        .pipe(gulp.dest('../dist/styles/fonts'));
+    gulp.src('../src/styles/common/fonts/*.*')
+        .pipe(gulp.dest('../dist/styles/fonts/'));
 });
 
 gulp.task('default', ['css', 'fonts']);

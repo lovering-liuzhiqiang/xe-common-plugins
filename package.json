@@ -1,6 +1,6 @@
 {
   "name": "xcms-common-plugins",
-  "version": "1.4.86",
+  "version": "1.9.1",
   "title": "xcms-common",
   "description": "xcms components Library with Vue.js",
   "homepage": "",
@@ -85,7 +85,7 @@
     "less-loader": "^2.2.3",
     "lolex": "^1.5.2",
     "mocha": "^3.2.0",
-    "node-sass": "^4.5.1",
+    "node-sass": "^4.5.3",
     "phantomjs-prebuilt": "^2.1.13",
     "sass-loader": "^6.0.3",
     "scss-loader": "0.0.1",
