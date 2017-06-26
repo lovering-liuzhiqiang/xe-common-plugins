@@ -59,10 +59,10 @@
                             </div>
                         </div>
                     </div>
-                    <div @click="helpClick">
-                        <img src="./nby_05.png" alt="">
-                        <span>帮助</span>
-                    </div>
+                    <!--<div @click="helpClick">-->
+                        <!--<img src="./nby_05.png" alt="">-->
+                        <!--<span>帮助</span>-->
+                    <!--</div>-->
                     <!--<div>-->
                         <!--<img src="./nby_07.png" alt="">-->
                         <!--<span>新手</span>-->
@@ -275,7 +275,7 @@
                 document.querySelector('head').appendChild(script);
             },
             helpClick() {
-                this.videoId = window.localStorage.getItem('currentVideoId');
+                this.videoId = window.sessionStorage.getItem('currentVideoId');
                 console.log('videoId', this.videoId);
                 if (this.videoId) {
                     this.InitPlayer(this.videoId);
@@ -290,7 +290,7 @@
                 var _this = this;
                 _this.$http({
                     method: 'POST',
-                    url: projectLink.apiBaseUrl + '/page/uam/menu/common/getVideoPlayAuthResponseByVideoId/' + videoId
+                    url: projectLink.epcApiBaseUrl + '/page/epc/video/getVideoPlayAuthResponseByVideoId/' + videoId
                 }).then((res) => {
                     _this.dialogVisible = true;
                     _this.noneImgShow = false;
@@ -307,17 +307,6 @@
                 }).catch((err) => {
 
                 });
-//                this.dialogVisible = true;
-//                this.noneImgShow = false;
-//                this.$nextTick(() => {
-//                    var player = new prismplayer({
-//                        id: "videoPanel",    // 容器id
-//                        source: videoUrl,  // 视频url 支持互联网可直接访问的视频地址
-//                        autoplay: true,       // 自动播放
-//                        width: "100%",        // 播放器宽度
-//                        height: "400px"      // 播放器高度
-//                    });
-//                });
             }
         },
         computed: {

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css"
+      href="//g.alicdn.com/de/prismplayer/1.4.10/skins/default/index-min.css">
+<script src="//g.alicdn.com/de/prismplayer/1.4.10/prism-flash-min.js"></script>
+<script>
+    function InitPlayer(){
+        var player = new prismplayer({
+            id: "J_prismPlayer",    // 容器id
+            source: "http://cloud.video.taobao.com/play/u/2554695624/p/1/e/6/t/1/fv/102/28552077.mp4",  // 视频url 支持互联网可直接访问的视频地址
+            autoplay: true,       // 自动播放
+            width: "100%",        // 播放器宽度
+            height: "400px"      // 播放器高度
+        });
+    }
+</script>
+<head>
+    <title>Flash播放器示例</title>
+</head>
+<body>
+<div id='J_prismPlayer' class='prism-player'></div>
+<script type="text/javascript">InitPlayer()</script></body>
+</html>
