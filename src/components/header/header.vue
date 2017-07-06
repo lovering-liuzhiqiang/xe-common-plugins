@@ -109,7 +109,8 @@
                 videoId: undefined,
                 noneImgShow: false,
                 player: '',
-                helpBtnShow: true
+                helpBtnShow: true,
+                isBind: false
             };
         },
         created() {
@@ -156,6 +157,7 @@
             'el-dialog': Dialog
         },
         mounted() {
+            this.listenFullScreen(true);
             this.insertSdk();
             this.$nextTick(() => {
                 var _this = this;
@@ -166,7 +168,7 @@
         },
         watch: {
             dialogVisible(val){
-                this.listenFullScreen(val);
+//                this.listenFullScreen(val);
             }
         },
         methods: {
@@ -327,7 +329,6 @@
                     })
 
                 }).catch((err) => {
-                    console.log('errr');
                     _this.dialogVisible = true;
                     _this.noneImgShow = true;
                     _this.removePlayer();
@@ -338,30 +339,39 @@
                     document.querySelector('.el-dialog__body').removeChild(document.querySelector('#J_prismPlayer'));
                 }
             },
-            listenFullScreen() {
-                document.addEventListener("fullscreenchange", function(){
-                    if (!document.fullscreen) {
-                        document.querySelector('#J_prismPlayer').className = 'prism-player';
-                    }
-                }, false);
+            listenFullScreen(val) {
+                if (val) {
+                    this.isBind = true;
+                    document.addEventListener("fullscreenchange", function(){
+                        if (!document.fullscreen) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
 
-                document.addEventListener("mozfullscreenchange", function () {
-                    if (document.mozFullScreen) {
-                        document.querySelector('#J_prismPlayer').className = 'prism-player';
-                    }
-                }, false);
+                    document.addEventListener("mozfullscreenchange", function () {
+                        if (!document.mozFullScreen) {
+                            console.log('mozFullScreen1', document.mozFullScreen);
+                            console.log('classList', document.querySelector('#J_prismPlayer'));
+                            setTimeout(() => {
+                                document.querySelector('#J_prismPlayer').className = 'prism-player';
+                                console.log('classList1', document.querySelector('#J_prismPlayer'));
+                            }, 100);
+//                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
 
-                document.addEventListener("webkitfullscreenchange", function () {
-                    if (!document.webkitIsFullScreen) {
-                        document.querySelector('#J_prismPlayer').className = 'prism-player';
-                    }
-                }, false);
+                    document.addEventListener("webkitfullscreenchange", function () {
+                        if (!document.webkitIsFullScreen) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
 
-                document.addEventListener("msfullscreenchange", function () {
-                    if (!document.msFullscreenElement) {
-                        document.querySelector('#J_prismPlayer').className = 'prism-player';
-                    }
-                }, false);
+                    document.addEventListener("msfullscreenchange", function () {
+                        if (!document.msFullscreenElement) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
+                }
             }
         },
         computed: {
