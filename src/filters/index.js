@@ -31,11 +31,9 @@ exports.scaleLinks = function (url) {
     };
 
     var objs = {
-        '/csc': '/index#' + (menuData('/csc').url ? menuData('/csc').url : '/csc/customer/toMaintainCscCustomerListPage'),
         '/rmc': '/index#' + (menuData('/rmc').url ? menuData('/rmc').url : '/rmc/lineoften/toMaintainLineOftenListPage'),
         '/ofc': '/index#' + (menuData('/ofc').url ? menuData('/ofc').url : '/ofc/tranLoad'),
         '/dpc': '/index#' + (menuData('/dpc').url ? menuData('/dpc').url : '/dpc/transpoolrule/toMaintainDpcTransPoolRuleListPage'),
-        '/whc': '/index#' + (menuData('/whc').url ? menuData('/whc').url : '/whc/page/toMaintainInventoryPage'),
         '/tfc': '/index#' + (menuData('/tfc').url ? menuData('/tfc').url : '/tfc/transport/toTransportListPage'),
         '/epc': '/index#' + (menuData('/epc').url ? menuData('/epc').url : '/epc/log/toRecordMapListPage'),
         '/ac': '/index#' + (menuData('/ac').url ? menuData('/ac').url : '/ac/transport/transportReceivable'),
@@ -80,7 +78,7 @@ exports.scaleLinks = function (url) {
 };
 exports.fnScaleLinks = function (url) {
   if (!url) return;
-  var objs = ['/csc','/rmc','/ofc','/dpc','/whc','/tfc','/epc','/ac','/adc'];
+  var objs = ['/rmc','/ofc','/dpc','/tfc','/epc','/ac','/adc'];
   var regResult = false;
   for (var i=0;i<objs.length;i++){
     var patternUrl = new RegExp("^" + objs[i]);

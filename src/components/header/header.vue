@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div @click="helpClick">
+                    <div class="xe-header-help-btn" @click="helpClick" v-show="helpBtnShow">
                         <img src="./nby_05.png" alt="">
                         <span>帮助</span>
                     </div>
@@ -70,9 +70,9 @@
                 </div>
             </div>
         </div>
-        <el-dialog class="xe-video-dialog" title="帮助视频" v-model="dialogVisible" size="small">
-            <div  id="J_prismPlayer" class="prism-player" v-if="!noneImgShow">
-            </div>
+        <el-dialog class="xe-video-dialog" title="帮助视频" v-model="dialogVisible" size="small" @close="videoDialogClose">
+            <!--<div ref="J_prismPlayer" id="J_prismPlayer" class="prism-player" v-show="!noneImgShow">-->
+            <!--</div>-->
             <img v-if="noneImgShow" class="xe-noneImg" src="./none.gif" alt="没有视频">
         </el-dialog>
     </div>
@@ -87,7 +87,7 @@
         props: {
             pending: {
                 type: Boolean,
-                default: false
+                default: false,
             }
         },
         data() {
@@ -107,10 +107,18 @@
                 searchIsShow: false,
                 dialogVisible: false,
                 videoId: undefined,
-                noneImgShow: false
+                noneImgShow: false,
+                player: '',
+                helpBtnShow: true
             };
         },
         created() {
+            var isHome = window.sessionStorage.getItem('isHome');
+            if (isHome == 'false') {
+                this.helpBtnShow = true;
+            } else {
+                this.helpBtnShow = false;
+            }
             var _this = this;
             switch (process.env.NODE_ENV) {
                 case 'production':
@@ -155,6 +163,11 @@
                     _this.searchShow = false;
                 };
             });
+        },
+        watch: {
+            dialogVisible(val){
+                this.listenFullScreen(val);
+            }
         },
         methods: {
             searchIconClick(event) {
@@ -275,49 +288,80 @@
                 document.querySelector('head').appendChild(script);
             },
             helpClick() {
-                this.videoId = window.localStorage.getItem('currentVideoId');
-                console.log('videoId', this.videoId);
+                this.videoId = '';
+                this.videoId = window.sessionStorage.getItem('currentVideoId');
                 if (this.videoId) {
                     this.InitPlayer(this.videoId);
                 } else {
+                    this.removePlayer();
                     this.dialogVisible = true;
                     this.noneImgShow = true;
                 }
 
+            },
+            videoDialogClose() {
+                this.removePlayer();
             },
             InitPlayer(videoId) {
                 let projectLink = getHomeProjectLink();
                 var _this = this;
                 _this.$http({
                     method: 'POST',
-                    url: projectLink.apiBaseUrl + '/page/uam/menu/common/getVideoPlayAuthResponseByVideoId/' + videoId
+                    url: projectLink.epcApiBaseUrl + '/page/epc/video/getVideoPlayAuthResponseByVideoId/' + videoId
                 }).then((res) => {
                     _this.dialogVisible = true;
                     _this.noneImgShow = false;
-                    this.$nextTick(() => {
-                        var player = new prismplayer({
+                    _this.$nextTick(() => {
+                        _this.removePlayer();
+                        var J_prismPlayer = document.createElement('div');
+                        J_prismPlayer.id = 'J_prismPlayer';
+                        J_prismPlayer.className = 'prism-player';
+                        document.querySelector('.el-dialog__body').appendChild(J_prismPlayer);
+                        _this.player = new prismplayer({
                             id: "J_prismPlayer",
-                            autoplay: true,
                             width: "100%",
                             height: "400px",
                             vid: videoId,
-                            playauth: res.result.playAuth,
+                            playauth: res.result.playAuth
                         });
-                    });
-                }).catch((err) => {
+                    })
 
+                }).catch((err) => {
+                    console.log('errr');
+                    _this.dialogVisible = true;
+                    _this.noneImgShow = true;
+                    _this.removePlayer();
                 });
-//                this.dialogVisible = true;
-//                this.noneImgShow = false;
-//                this.$nextTick(() => {
-//                    var player = new prismplayer({
-//                        id: "videoPanel",    // 容器id
-//                        source: videoUrl,  // 视频url 支持互联网可直接访问的视频地址
-//                        autoplay: true,       // 自动播放
-//                        width: "100%",        // 播放器宽度
-//                        height: "400px"      // 播放器高度
-//                    });
-//                });
+            },
+            removePlayer() {
+                if (document.querySelector('#J_prismPlayer')) {
+                    document.querySelector('.el-dialog__body').removeChild(document.querySelector('#J_prismPlayer'));
+                }
+            },
+            listenFullScreen() {
+                document.addEventListener("fullscreenchange", function(){
+                    if (!document.fullscreen) {
+                        document.querySelector('#J_prismPlayer').className = 'prism-player';
+                    }
+                }, false);
+
+                document.addEventListener("mozfullscreenchange", function () {
+                    if (document.mozFullScreen) {
+                        document.querySelector('#J_prismPlayer').className = 'prism-player';
+                    }
+                }, false);
+
+                document.addEventListener("webkitfullscreenchange", function () {
+                    if (!document.webkitIsFullScreen) {
+                        document.querySelector('#J_prismPlayer').className = 'prism-player';
+                    }
+                }, false);
+
+                document.addEventListener("msfullscreenchange", function () {
+                    if (!document.msFullscreenElement) {
+                        document.querySelector('#J_prismPlayer').className = 'prism-player';
+                    }
+                }, false);
             }
         },
         computed: {
