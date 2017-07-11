@@ -59,10 +59,10 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div @click="helpClick">-->
-                        <!--<img src="./nby_05.png" alt="">-->
-                        <!--<span>帮助</span>-->
-                    <!--</div>-->
+                    <div class="xe-header-help-btn" @click="helpClick" v-show="helpBtnShow">
+                        <img src="./nby_05.png" alt="">
+                        <span>帮助</span>
+                    </div>
                     <!--<div>-->
                         <!--<img src="./nby_07.png" alt="">-->
                         <!--<span>新手</span>-->
@@ -70,9 +70,9 @@
                 </div>
             </div>
         </div>
-        <el-dialog class="xe-video-dialog" title="帮助视频" v-model="dialogVisible" size="small">
-            <div  id="J_prismPlayer" class="prism-player" v-if="!noneImgShow">
-            </div>
+        <el-dialog class="xe-video-dialog" title="帮助视频" v-model="dialogVisible" @close="videoDialogClose">
+            <!--<div ref="J_prismPlayer" id="J_prismPlayer" class="prism-player" v-show="!noneImgShow">-->
+            <!--</div>-->
             <img v-if="noneImgShow" class="xe-noneImg" src="./none.gif" alt="没有视频">
         </el-dialog>
     </div>
@@ -107,10 +107,19 @@
                 searchIsShow: false,
                 dialogVisible: false,
                 videoId: undefined,
-                noneImgShow: false
+                noneImgShow: false,
+                player: '',
+                helpBtnShow: true,
+                isBind: false
             };
         },
         created() {
+            var isHome = window.sessionStorage.getItem('isHome');
+            if (isHome == 'false') {
+                this.helpBtnShow = true;
+            } else {
+                this.helpBtnShow = false;
+            }
             var _this = this;
             switch (process.env.NODE_ENV) {
                 case 'production':
@@ -148,6 +157,7 @@
             'el-dialog': Dialog
         },
         mounted() {
+            this.listenFullScreen(true);
             this.insertSdk();
             this.$nextTick(() => {
                 var _this = this;
@@ -155,6 +165,11 @@
                     _this.searchShow = false;
                 };
             });
+        },
+        watch: {
+            dialogVisible(val){
+//                this.listenFullScreen(val);
+            }
         },
         methods: {
             searchIconClick(event) {
@@ -271,19 +286,23 @@
                 link.href = 'http://g.alicdn.com/de/prismplayer/1.7.6/skins/default/index-min.css';
                 document.querySelector('head').appendChild(link);
                 let script = document.createElement('script');
-                script.src = 'http://g.alicdn.com/de/prismplayer/1.7.6/prism-min.js';
+                script.src = 'http://g.alicdn.com/de/prismplayer/1.7.6/prism-h5-min.js';
                 document.querySelector('head').appendChild(script);
             },
             helpClick() {
+                this.videoId = '';
                 this.videoId = window.sessionStorage.getItem('currentVideoId');
-                console.log('videoId', this.videoId);
                 if (this.videoId) {
                     this.InitPlayer(this.videoId);
                 } else {
+                    this.removePlayer();
                     this.dialogVisible = true;
                     this.noneImgShow = true;
                 }
 
+            },
+            videoDialogClose() {
+                this.removePlayer();
             },
             InitPlayer(videoId) {
                 let projectLink = getHomeProjectLink();
@@ -294,19 +313,65 @@
                 }).then((res) => {
                     _this.dialogVisible = true;
                     _this.noneImgShow = false;
-                    this.$nextTick(() => {
-                        var player = new prismplayer({
+                    _this.$nextTick(() => {
+                        _this.removePlayer();
+                        var J_prismPlayer = document.createElement('div');
+                        J_prismPlayer.id = 'J_prismPlayer';
+                        J_prismPlayer.className = 'prism-player';
+                        document.querySelector('.el-dialog__body').appendChild(J_prismPlayer);
+                        _this.player = new prismplayer({
                             id: "J_prismPlayer",
-                            autoplay: true,
                             width: "100%",
                             height: "400px",
                             vid: videoId,
-                            playauth: res.result.playAuth,
+                            playauth: res.result.playAuth
                         });
-                    });
-                }).catch((err) => {
+                    })
 
+                }).catch((err) => {
+                    _this.dialogVisible = true;
+                    _this.noneImgShow = true;
+                    _this.removePlayer();
                 });
+            },
+            removePlayer() {
+                if (document.querySelector('#J_prismPlayer')) {
+                    document.querySelector('.el-dialog__body').removeChild(document.querySelector('#J_prismPlayer'));
+                }
+            },
+            listenFullScreen(val) {
+                if (val) {
+                    this.isBind = true;
+                    document.addEventListener("fullscreenchange", function(){
+                        if (!document.fullscreen) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
+
+                    document.addEventListener("mozfullscreenchange", function () {
+                        if (!document.mozFullScreen) {
+                            console.log('mozFullScreen1', document.mozFullScreen);
+                            console.log('classList', document.querySelector('#J_prismPlayer'));
+                            setTimeout(() => {
+                                document.querySelector('#J_prismPlayer').className = 'prism-player';
+                                console.log('classList1', document.querySelector('#J_prismPlayer'));
+                            }, 100);
+//                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
+
+                    document.addEventListener("webkitfullscreenchange", function () {
+                        if (!document.webkitIsFullScreen) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
+
+                    document.addEventListener("msfullscreenchange", function () {
+                        if (!document.msFullscreenElement) {
+                            document.querySelector('#J_prismPlayer').className = 'prism-player';
+                        }
+                    }, false);
+                }
             }
         },
         computed: {
