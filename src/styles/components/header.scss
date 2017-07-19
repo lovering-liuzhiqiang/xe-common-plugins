@@ -34,11 +34,12 @@ $header-prefix-cls: "#{$css-prefix}header";
         .header-search {
           width: 300px;
           margin: 0px 0px 0px -230px;
-          padding: 6px 0;
+          //padding: 6px 0;
           position: absolute;
           top: 0;
           vertical-align: top;
           .el-input {
+            position: static !important;
             height: 33px;
             vertical-align: top;
             border: none;

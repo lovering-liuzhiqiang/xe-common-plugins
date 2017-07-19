@@ -4,10 +4,6 @@ import {toObject} from './assist.js';
 
 let NODE_ENVS = process.env.NODE_ENV;
 
-console.log('====common_fn====');
-console.log(NODE_ENVS);
-console.log('====common_fn====');
-
 // 全局退出登录 -- 删除cookie
 export function logOut() {
     if (NODE_ENVS === 'development') {

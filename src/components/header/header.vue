@@ -41,7 +41,7 @@
                     <div @mouseenter.self.stop="mouseSearch" @mouseleave.stop="outSearch" ref="search">
                         <img src="./nby_03.png" alt="">
                         <span>搜索</span>
-                        <div class="header-search" v-if="searchIsShow">
+                        <div class="header-search" v-show="searchIsShow">
                             <form action="" @submit.prevent='searchSubmit()'>
                                 <el-input
                                 v-model.trim="searchWords"
@@ -350,13 +350,9 @@
 
                     document.addEventListener("mozfullscreenchange", function () {
                         if (!document.mozFullScreen) {
-                            console.log('mozFullScreen1', document.mozFullScreen);
-                            console.log('classList', document.querySelector('#J_prismPlayer'));
                             setTimeout(() => {
                                 document.querySelector('#J_prismPlayer').className = 'prism-player';
-                                console.log('classList1', document.querySelector('#J_prismPlayer'));
                             }, 100);
-//                            document.querySelector('#J_prismPlayer').className = 'prism-player';
                         }
                     }, false);
 

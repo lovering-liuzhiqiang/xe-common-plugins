@@ -5,8 +5,6 @@ exports.scaleLinks = function (url) {
     if (!urlTask) {
         urlResult = '/' + urlResult;
     }
-    console.log(urlResult);
-
     function menuData(flag) {
         var menuList = window.localStorage.getItem('menuList');
         var datas = menuList ? JSON.parse(menuList) : [];
