@@ -1,25 +1,25 @@
 // 检测对象内是否有某属性
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwn(obj, key) {
-  return hasOwnProperty.call(obj, key);
-};
+    return hasOwnProperty.call(obj, key);
+}
 
 function extend(to, _from) {
-  for (let key in _from) {
-    to[key] = _from[key];
-  }
-  return to;
-};
+    for (let key in _from) {
+        to[key] = _from[key];
+    }
+    return to;
+}
 // 对象合并
 export function toObject(arr) {
-  var res = {};
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i]);
+    var res = {};
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i]) {
+            extend(res, arr[i]);
+        }
     }
-  }
-  return res;
-};
+    return res;
+}
 
 // 判断参数是否是其中之一
 export function oneOf (value, validList) {
@@ -158,35 +158,35 @@ export function hasClass(obj, cls){
 }
 
 export function addWheel(oDiv, fn){
-	oDiv.onmousewheel=fnWheel;
-	if(oDiv.addEventListener)
+    oDiv.onmousewheel=fnWheel;
+    if(oDiv.addEventListener)
 	{
-		oDiv.addEventListener('DOMMouseScroll', fnWheel, false);
-	}
+        oDiv.addEventListener('DOMMouseScroll', fnWheel, false);
+    }
 
-	function fnWheel(ev)
+    function fnWheel(ev)
 	{
-		var oEvent=ev||event;
+        var oEvent=ev||event;
 
 		//alert(oEvent.wheelDelta);	//下		负
 		//alert(oEvent.detail);		//下		正
 
-		var down=true;
-		if(oEvent.wheelDelta)
+        var down=true;
+        if(oEvent.wheelDelta)
 		{
-			down=oEvent.wheelDelta<0;
-		}
-		else
+            down=oEvent.wheelDelta<0;
+        }
+        else
 		{
-			down=oEvent.detail>0;
-		}
+            down=oEvent.detail>0;
+        }
 
-		fn(down);
+        fn(down);
 
-		if(oEvent.preventDefault)
+        if(oEvent.preventDefault)
 		{
-			oEvent.preventDefault();
-		}
-		return false;
-	}
+            oEvent.preventDefault();
+        }
+        return false;
+    }
 }

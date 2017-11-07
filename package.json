@@ -1,6 +1,6 @@
 {
   "name": "xcms-common-plugins",
-  "version": "2.4.5",
+  "version": "3.7.5",
   "title": "xcms-common",
   "description": "xcms components Library with Vue.js",
   "homepage": "",
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "async-validator": "^1.6.7",
+    "axios": "^0.16.2",
     "core-js": "^2.4.1",
     "deepmerge": "^1.3.1",
     "element-ui": "^1.2.5",

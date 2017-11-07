@@ -23,10 +23,11 @@
     </div>
 </template>
 <script type="text/ecmascript-6">
+//    import Cookies from 'js-cookie';
     import {scaleLinks} from '../../filters/';
     import {Tooltip} from 'element-ui';
     import {addWheel} from '../../utils/';
-    import { addClass, removeClass, getNowCookie} from '../../utils/';
+    import { addClass, removeClass, getNowCookie, getUserStatus} from '../../utils/';
     const prefixCls = 'xcms-mainmenu';
     export default {
         props: {

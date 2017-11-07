@@ -39,6 +39,7 @@ $header-prefix-cls: "#{$css-prefix}header";
           top: 0;
           vertical-align: top;
           .el-input {
+            padding-top: 6px;
             position: static !important;
             height: 33px;
             vertical-align: top;

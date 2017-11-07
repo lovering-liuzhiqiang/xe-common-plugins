@@ -182,22 +182,22 @@
                     switch (process.env.NODE_ENV) {
                         // 生产
                         case 'production':
-                            this.ofcUrl = 'http://paas.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                            this.ofcUrl = 'http://paas-web.xianyiscm.com/ofc/orderManage/toViewOrderDetail?orderCode='
                         break;
                         // 预生产
                         case 'beta':
-                            this.ofcUrl = 'http://paas-beta.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                            this.ofcUrl = 'http://paas-web-beta.xianyiscm.com/ofc/orderManage/toViewOrderDetail?orderCode='
                         break;
                         // 测试
                         case 'test':
-                            this.ofcUrl = 'http://paas-test.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                            this.ofcUrl = 'http://paas-web-test.xianyiscm.com/ofc/orderManage/toViewOrderDetail?orderCode='
                         break;
                         // 开发版-devend
                         case 'devend':
-                            this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                            this.ofcUrl = 'http://paas-web-dev.xianyiscm.com/ofc/orderManage/toViewOrderDetail?orderCode='
                         break;
                         default:
-                            this.ofcUrl = 'http://paas-dev.xianyiscm.com/index#/ofc/orderDetailPageByCode/'
+                            this.ofcUrl = 'http://paas-web-dev.xianyiscm.com/ofc/orderManage/toViewOrderDetail?orderCode='
                     }
                     this.$http({
                         method: 'get',
@@ -260,10 +260,18 @@
                 this.$http({
                     method: 'POST',
                     url: '/page/login/logout'
+                }).then(res => {
+                    console.log('xxxxxxxxxxx');
+                    logOut();
+                    this.$xeStore.removeItem('menuList');
+                    this.backToLogin();
+                }).catch(error => {
+                    console.log('ssssssssssssss');
+                    logOut();
+                    this.$xeStore.removeItem('menuList');
+                    this.backToLogin();
                 });
-                logOut();
-                this.$xeStore.removeItem('menuList');
-                this.backToLogin();
+
             },
             logInfn() {
                 // this.$router.replace({name: 'Login'});
