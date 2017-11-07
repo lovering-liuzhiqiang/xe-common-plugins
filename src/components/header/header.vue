@@ -261,12 +261,10 @@
                     method: 'POST',
                     url: '/page/login/logout'
                 }).then(res => {
-                    console.log('xxxxxxxxxxx');
                     logOut();
                     this.$xeStore.removeItem('menuList');
                     this.backToLogin();
                 }).catch(error => {
-                    console.log('ssssssssssssss');
                     logOut();
                     this.$xeStore.removeItem('menuList');
                     this.backToLogin();
